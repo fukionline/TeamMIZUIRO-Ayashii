@@ -1,17 +1,17 @@
 #! /usr/local/bin/perl
 
-# ƒGƒ‰[ƒ`ƒFƒbƒNBƒXƒNƒŠƒvƒg•ÒW‚ÉƒRƒƒ“ƒg‚ğŠO‚µ‚Ä‚¨g‚¢‚­‚¾‚³‚¢(—vPerl5ŠÂ‹«)
+# Error Checking. Please uncomment when editing scripts (Perl5 environment required).
 use CGI::Carp qw(fatalsToBrowser); 
 
-=header1 -- ‚²‚ ‚¢‚³‚Â --
+=header1 -- Intro --
 
-—‚¶‚å‚µ‚ ‚È + Team MIZUIRO ver3.10d  2022/07/22
+@joshiana + Team MIZUIRO ver3.10d 2022/07/22
 
-Š—LÒŒ ŒÀ‚ÅCGI‚ª“®‚­ƒT[ƒo[‚Ìê‡‚Ìƒp[ƒ~ƒbƒVƒ‡ƒ“İ’è—á
+Example of permission settings for a server where CGI runs with owner authority
 
-  [public_html]iƒz[ƒ€ƒy[ƒWƒfƒBƒŒƒNƒgƒŠj
+  [public_html] (home page directory)
         |
-        |---- [cgi-bin]i701j
+        |---- [cgi-bin]ï¼ˆ701ï¼‰
                   |
                   |-- bbs.cgi  (700)
                   |-- core.pl  (600)
@@ -29,130 +29,131 @@ use CGI::Carp qw(fatalsToBrowser);
                   |-- [data] (701)
                   |-- [log]  (701)
 
-Œf¦”Â‰‰ñ‹N“®‚ÍŠÇ—ÒƒpƒXƒ[ƒh“o˜^‰æ–Ê‚É‚È‚è‚Ü‚·B
+When the BBS is launched for the first time, the administrator password registration screen will be displayed.
 
-ˆÃ†ƒVƒXƒeƒ€‚ªˆÙ‚È‚éƒT[ƒo‚ÖˆÚ“]‚µ‚½ê‡‚Ípassword.pl‚ğè“®‚ÅƒNƒŠƒA(’†g‚ğÁ‚µ‚Ä0byte‚É‚·‚éA
-‚Ü‚½‚Íƒtƒ@ƒCƒ‹©‘Ì‚ğíœ)‚µ‚ÄÄİ’è‚µ‚Ä‰º‚³‚¢B
+If you move to a server with a different encryption system, please clear password.pl manually (delete the contents to 0 bytes
+or delete the file itself) and then reset the password.
 
-ŠÇ—Òƒ‚[ƒh‚ÉˆÚs‚·‚é•û–@‚Íu“ŠeÒ–¼‚ÉŠÇ—ÒƒpƒXƒ[ƒhA“Še“à—e‚É$adminkey‚Åİ’è‚µ‚½
-ŠÇ—ƒ‚[ƒhˆÚsƒL[‚ğ‹L“ü‚µ‚Ä“Šeƒ{ƒ^ƒ“‚ğ‰Ÿ‚·v‚Å‚·B
+The way to switch to admin mode is to "enter the admin password in the submitter's name, the adminkey set in $adminkey in the post content, and press the submit button.
+adminkey" and press the "Submit" button.
 
-¦ƒXƒNƒŠƒvƒg‚ğ‰ü‘¢‚·‚é•û‚Ö
-ŠÂ‹«İ’è‚¨‚æ‚Ñ•\¦ƒpƒ‰ƒ[ƒ^[İ’è/•ªŠòˆ—‚Åİ’è‚µ‚½‚·‚×‚Ä‚Ì•Ï”‚Æcore.plƒfƒR[ƒhI—¹Œã‚Ì˜A‘z”z—ñ
-%FORM($FORM{'name'}..etc)%GLOB($GLOB{'img'}..etc)‚ÍƒOƒ[ƒoƒ‹‚Æ‚µ‚Ä‚Ç‚±‚©‚ç‚Å‚àQÆ‰Â”\‚Æ‚µ‚Ä‚¢‚Ü‚·B
+*For those who modify the script
+All variables set in preferences and display parameter settings/branching process and associative array after core.pl decoding
+%FORM($FORM{'name'}..etc)%GLOB($GLOB{'img'}..etc)is assumed to be global and can be referenced from anywhere.
 
-Ú‚µ‚­‚Í”z•zƒy[ƒW‚ğ‚²——‰º‚³‚¢B
- —‚¶‚å‚µ‚ ‚È + Team MIZUIRO BBS ”z•z & İ’u‚Ìèˆø‚«
+Please see the distribution page for details.
+ @Joshiana + Team MIZUIRO BBS Distribution & Installation Guide
  http://taiyaki.s8.xrea.com/TeamMIZUIRO/index.html
 
-ƒoƒO•ñA‚²¿–â‚Í‚±‚¿‚ç‚É‚Ç‚¤‚¼ R(L[`)ƒm
- —‚¶‚å‚µ‚ ‚È + Team MIZUIRO ƒTƒ“ƒvƒ‹Œf¦”Â
+Please report bugs or ask questions here.
+ @Joshiana + Team MIZUIRO Sample Bulletin Board
  http://taiyaki.s8.xrea.com/TeamMIZUIRO/cgi-bin/bbs.cgi
 
 =cut
 
 ##################################
-# ŠÂ‹«İ’è
+# Configurating
 ##################################
 
-# ---------------- ŠÇ—ƒ‚[ƒhˆÚsƒL[(—v•ÏX)
+# ---------------- ADMIN PASS (CHANGE THIS!)
 
 $adminkey = 'admin';
 
-# ---------------- İ’è(İ’uŠÂ‹«‚É‡‚í‚¹‚Ä•ÏX)
+# ---------------- è¨­å®š(è¨­ç½®ç’°å¢ƒã«åˆã‚ã›ã¦å¤‰æ›´)
 
-$title = '—‚¶‚å‚µ‚ ‚È + Team MIZUIRO ƒTƒ“ƒvƒ‹Œf¦”Â'; # Œf¦”Â‚Ì–¼‘O
-$homeurl = ' http://taiyaki.s8.xrea.com/index.html';  # ƒz[ƒ€ƒy[ƒW
-$mailadd = 'renraku@mail.de.ne'; # ˜A—æ
-$countdate = '2000/xx/xx';       # ƒAƒNƒZƒXƒJƒEƒ“ƒ^ŠJn“ú
-$countlevel = 2;                 # ƒJƒEƒ“ƒ^‹­“x
+$title = 'MiniBBS Team MIZUIRO Sample Board'; # Bulletin Board Name
+$homeurl = ' http://taiyaki.s8.xrea.com/index.html';  # Home Page
+$mailadd = 'renraku@mail.de.ne'; # Contact email
+$countdate = '2000/xx/xx';       # Access Counter Start Date
+$countlevel = 2;                 # Counter Intensity
 
-# ŠÇ—Ò–¼İ’èBÅŒã‚ªuƒ\v‚ÅI‚í‚é‚g‚m‚ğ‚¨g‚¢‚Ì•û‚Í–¼‘O‚ÌÅŒã‚É\‚ğ•t‚¯‚Ä‰º‚³‚¢B
-#i—á‚¦‚ÎƒGƒfƒ\‚³‚ñ‚Ìê‡F$namez='ƒGƒfƒ\\';j
-$namez = 'ŠÇ—l';       # ŠÇ—ÒƒpƒXƒ[ƒh‚Å“Še‚É•\¦‚³‚ê‚é–¼‘O
-$mailz = $mailadd;       # ŠÇ—ÒƒpƒXƒ[ƒh‚Å“Še‚É“Y•t‚³‚ê‚éƒ[ƒ‹ƒAƒhƒŒƒX
-$nameng = 'ƒAƒjƒL';      # ‚m‚fƒl[ƒ€i‚±‚Ì–¼‘O‚Å“Še‚·‚é‚Æƒuƒ‰ƒEƒU‚ªƒNƒ‰ƒbƒVƒ…j
+# Admin name setting. If you are using an HN that ends with "so", please add \ at the end of your name.
+# (For example, for Mr. Edeso: $namez='Edeso\';)
+$namez = 'Kanririn';       # Name displayed when posting with admin password
+$mailz = $mailadd;       # Email address attached when posting with admin password
+$nameng = 'IDunnoWhatThisDoes';      # NG name (browser crashes when posting with this name)
 
-# Fİ’è(16i•\‹LBæ“ª‚É#‚Í•s—vj
-$bgcdef = '004040';      # body•”‚ÌF
+# Color setting (hexadecimal notation. Dont add a hashtag to the beginning)
+$bgcdef = '004040';      # Background color
 $textc  = 'ffffff';
 $linkc  = 'eeffee';
 $vlinkc = 'dddddd';
 $alinkc = 'ff0000';
 
-$subjc  = 'fffffe';       # ‘è–¼‚ÌF
-$resc   = 'a0a0a0';       # ˆø—ps(> or „ ‚Ån‚Ü‚és)‚ÌF
+$subjc  = 'fffffe';       # Subject
+$resc   = 'a0a0a0';       # Greentext
 
-$numdef = 20;             # ‚Pƒy[ƒW‚É•\¦‚·‚éŒ”‚ÌƒfƒtƒHƒ‹ƒg’l(PC—p)
-$nummbdef = 10;           # ‚Pƒy[ƒW‚É•\¦‚·‚éŒ”‚ÌƒfƒtƒHƒ‹ƒg’l(Mobile—p)
-$nummin = 1;              # ‚Pƒy[ƒW‚É•\¦‚·‚éŒ”‚ÌÅ¬’l
-$nummax = 50;             # ‚Pƒy[ƒW‚É•\¦‚·‚éŒ”‚ÌÅ‘å’l
-$l_record = 300;          # “Še‹L–‚ÌÅ‘å‹L˜^Œ”
+$numdef = 20;             # Default number of items displayed per page (for PC)
+$nummbdef = 10;           # Default number of items displayed per page (for Mobile)
+$nummin = 1;              # Minimum number of items to be displayed on one page
+$nummax = 50;             # Maximum number of items to be displayed on one page
+$l_record = 300;          # Maximum number of postd
 
-$l_all = 1024*1024;       # ‰æ‘œ‚ğŠÜ‚Ş‘S‚Ä‚Ì‘—Mƒf[ƒ^‚Ì‡Œv(byte)
-$l_width = 1920;          # ‰æ‘œ‚Ì‰¡•‚ÌÅ‘å’l(px)
-$l_height = 1920;         # ‰æ‘œ‚Ì‚‚³‚ÌÅ‘å’l(px)
+$l_all = 1024*1024;       # Maximum image size (measured in bytes)
+$l_width = 1920;          # Maxmium image width (measured in px)
+$l_height = 1920;         # Maximum image height (measured in px)
 
-$imgctrl = 'size';        # •Û‘¶‰æ‘œ‚ÌŠÇ—•û–@ size:•Û‘¶ƒfƒBƒŒƒNƒgƒŠ‚Ì—e—Ê‚ÅŠÇ—(—vPerl5ŠÂ‹«) num:‡Œvƒtƒ@ƒCƒ‹”‚ÅŠÇ—(Perl4,Perl5—¼—p)
-$l_imgdir = 50*1024*1024; # ‰æ‘œ•Û‘¶ƒfƒBƒŒƒNƒgƒŠ‚ÌÅ‘å—e—Ê(byte)($imgctrl = 'size';‚Ìê‡“K—p)
-$l_imgnum = 50;           # ‰æ‘œ‚ÌÅ‘å•Û‘¶”($imgctrl = 'num';‚Ìê‡“K—p)
+$imgctrl = 'size';        # How to manage saved images size: managed by storage directory size (Perl5 environment required) num: managed by total number of files (for both Perl4 and Perl5)
+$l_imgdir = 50*1024*1024; # Maximum size of image storage directory (in bytes) (applicable if $imgctrl = 'size';)
+$l_imgnum = 50;           # Maximum number of images to store (applicable if $imgctrl = 'num';)
 
-# •ÏŠ·/•\¦checkbox‚ÌƒfƒtƒHƒ‹ƒg’l
-$autolinkdef = 1;         # URL¨Link©“®•ÏŠ·(“Še‚É“K—p)‚ÌƒfƒtƒHƒ‹ƒg’l 0:•ÏŠ·–³‚µ 1:•ÏŠ·‚ ‚è
-$imgviewdef = 1;          # ‰æ‘œ•\¦‚ÌƒfƒtƒHƒ‹ƒg’lB0:Link‚Å•\¦ 1:‰æ‘œ‚Å•\¦
-$videodef = 0;            # Youtube“®‰æLink¨“®‰æƒvƒŒ[ƒ„•\¦‚ÌƒfƒtƒHƒ‹ƒg’l 0:’ÊíLink‚Æ“¯‚¶ˆµ‚¢ 1:iframe‚Å“®‰æƒvƒŒ[ƒ„[‚ğ•\¦
-$videowidth = 480;        # YouTube“®‰æƒvƒŒ[ƒ„[‚Ì‰¡•(px)
-$videoheight = 270;       # YouTube“®‰æƒvƒŒ[ƒ„[‚Ì‚‚³(px)
+# Default value for conversion/display checkbox
+$autolinkdef = 1;         # Default value for URLâ†’Link auto-conversion (applied when posting) 0: without conversion 1: with conversion
+$imgviewdef = 1;          # Default value for image display. 0: Display as Link 1: Display as Image
+$videodef = 0;            # Youtube Video Linkâ†’Default value of video player display 0:Same as normal Link 1:Display video player in an iframe
+$videowidth = 480;        # Width of YouTube video player (px)
+$videoheight = 270;       # YouTube video player height (px)
 
-# ƒT[ƒ`İ’è
-$ngsearch = 0;            # ŠeíƒT[ƒ`‚ÅœŠO‚·‚éƒL[ƒ[ƒh 0:œŠOƒL[ƒ[ƒh–³‚µ 1:”¼Špor‘SŠpƒXƒy[ƒX1ŒÂ 2:1•¶š(1byte)‚ÌƒL[ƒ[ƒh
-$l_search2 = 200;         # šƒ{ƒ^ƒ““ŠeÒ–¼ƒT[ƒ`Œ‹‰Ê‚ÌÅ‘å•\¦Œ”
-$l_thread = 200;          # /Ÿƒ{ƒ^ƒ“ƒXƒŒƒbƒh•\¦‚ÌÅ‘å•\¦Œ”
-$l_logsearch = 1000;      # ‰ß‹ƒƒOŒŸõŒ‹‰Ê‚ÌÅ‘å•\¦Œ”
-$l_keyword = 50;          # ‰ß‹ƒƒOŒŸõƒL[ƒ[ƒh‚ÌÅ‘å’l(byte)
+# ã‚µãƒ¼ãƒè¨­å®š
+$ngsearch = 0;            # Keywords to exclude in various searches 0:No excluded keywords 1:One half-width or one full-width space 2:One character (1byte) keyword
+$l_search2 = 200;         # Maximum number of results displayed in the search results for the name of the contributor of the button
+$l_thread = 200;          # â—‡/â—†Maximum number of button threads displayed
+$l_logsearch = 1000;      # Maximum number of past log search results displayed
+$l_keyword = 50;          # Maximum value of keywords for log search (bytes)
 
-# “ŠeƒR[ƒh‚ÆƒXƒpƒ€‘Îô
-$codemode = 1;            # “ŠeƒR[ƒhƒ‚[ƒh 0:“ŠeƒR[ƒh”ñ•\¦ 1:PC‚Ì‚İ•¶šŠG“ŠeƒR[ƒh•\¦ 2:PC/Mobile‹¤‚É•¶šŠG“ŠeƒR[ƒh•\¦
-$spammode = 1;            # “Še“à—e(URLŒÂ”/g—pŒ¾Œê“™)‚É‚æ‚éƒXƒpƒ€‘Îô 0:•sg—p 1:ƒAƒbƒvƒ[ƒh‰æ‘œ‚ª–³‚¢“Še‚Ì‚İ“K—p 2:‚·‚×‚Ä‚Ì“Še‚É“K—p
+# æŠ•ç¨¿ã‚³ãƒ¼ãƒ‰ã¨ã‚¹ãƒ‘ãƒ å¯¾ç­–
+$codemode = 1;            # Posting code mode 0:Posting code hidden 1:Text picture posting code displayed only on PC 2:Text picture posting code displayed on both PC and Mobile
+$spammode = 1;            # Anti-spam by post content (number of URLs/languages used, etc.) 0:Do not use 1:Apply only to posts without uploaded images 2:Apply to all posts
 
-# “ŠeƒR[ƒhÚ×
-$codekey = 12345678;      # “ŠeƒR[ƒh1 (8Œ…‚Ì”’lA—v•ÏX)
-$codesalt = 56;           # “ŠeƒR[ƒh2 (2Œ…‚Ì”’lA—v•ÏX)
-$l_time = 6*60*60;        # “ŠeƒR[ƒh—LŒøŠúŒÀ(sec ‚±‚ê‚æ‚è’·‚¢ŠÔ‚ªŒo‰ß‚µ‚½ê‡‚Í‘‚«‚İ•s‰Â)
-$s_time = 5;              # “ŠeŠÔŠu§ŒÀ(sec ‚±‚ê‚æ‚è’Z‚¢ŠÔŠu‚Ì‘‚«‚İ•s‰Â)
+# Submission Code Details
+$codekey = 12345678;      # Submission code 1 (8-digit number, CHANGE THIS!)
+$codesalt = 56;           # Submission code 2 (2-digit number, CHANGE THIS!)
+$l_time = 6*60*60;        # Posting code expiration date (sec If a longer time than this has passed, writing is not allowed.)
+$s_time = 5;              # Posting interval limit (sec)
 
-# ---------------- İ’è(‚»‚Ì‘¼)
+# ---------------- Setting (Other)
 
-$bbsfile = './bbs.dat';         # “à—e‚ª‘‚«‚Ü‚ê‚é‹L˜^ƒtƒ@ƒCƒ‹
-$imglog = './img.dat';          # ƒCƒ[ƒWƒtƒ@ƒCƒ‹”Ô†‚Ì‹L˜^ƒtƒ@ƒCƒ‹
-$passfile = './password.pl';    # ŠÇ—ÒƒpƒXƒ[ƒh‹L˜^ƒtƒ@ƒCƒ‹
-$dirinfofile = './dirinfo.dat'; # ‰æ‘œƒfƒBƒŒƒNƒgƒŠg—p—Ê‹L˜^ƒtƒ@ƒCƒ‹($imgctrl = 'size';‚Ìê‡ì¬/g—p)
-$jcpl =  './jacode.pl';         # “ú–{ŒêƒR[ƒh•ÏŠ·ƒ‰ƒCƒuƒ‰ƒŠjaocode.pl‚ÌƒpƒX
-$bbscore = './core.pl';         # Œf¦”ÂƒRƒAƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒpƒX
-$cssloader = './css.pl';        # CSSƒ[ƒ_[‚ÌƒpƒX
-$countdir = './count';          # ƒJƒEƒ“ƒgƒf[ƒ^•Û‘¶ƒfƒBƒŒƒNƒgƒŠ
-$rankdir = './rank';            # ƒ‰ƒ“ƒLƒ“ƒOƒf[ƒ^•Û‘¶ƒfƒBƒŒƒNƒgƒŠ
-$tmpdir = './tmp';              # ƒeƒ“ƒ|ƒ‰ƒŠƒtƒ@ƒCƒ‹—pƒfƒBƒŒƒNƒgƒŠ
-$logdir = './log';              # ‰ß‹ƒƒO•Û‘¶ƒfƒBƒŒƒNƒgƒŠ
-$imgdir = './data';             # “Še‰æ‘œ•Û‘¶ƒfƒBƒŒƒNƒgƒŠ
+$bbsfile = 'bbs.dat'; # Recorded file whose contents are written to
+$imglog = 'img.dat'; # Recorded file of image file number
+$passfile = 'password.pl'; # Admin password record file
+$dirinfofile = 'dirinfo.dat'; # image directory usage record file (created/used if $imgctrl = 'size';)
+$jcpl = 'jacode.pl'; # Path of the Japanese code conversion library jaocode.pl
+$bbscore = 'core.pl'; # Path of the BBS core library
+$cssloader = 'css.pl'; # path of CSS loader
+$countdir = '/count'; # directory to save count data
+$rankdir = '/rank'; # Directory for ranking data storage
+$tmpdir = '/tmp'; # Directory for temporary files
+$logdir = '/log'; # Directory for storing historical logs
+$imgdir = '/data'; # directory to store submitted images
 
-$l_name = 40;                   # –¼‘O‚ÌÅ‘å’l(byte)
-$l_email = 80;                  # ƒ[ƒ‹ƒAƒhƒŒƒX‚ÌÅ‘å’l(byte)
-$l_subject = 80;                # ‘è–¼‚ÌÅ‘å’l(byte)
-$l_value = 30*1024;             # “à—e‚ÌÅ‘å’l(byte)
-$l_line = 200;                  # “à—e‚Ìs”‚ÌÅ‘å’l
-$check = 5;                     # “ñd‘‚«‚İƒ`ƒFƒbƒNŒ”(ÅV-$checkŒ‚Ü‚Åƒ`ƒFƒbƒN)
+$l_name = 40;                   # åå‰ã®æœ€å¤§å€¤(byte)
+$l_email = 80;                  # Maximum value of e-mail address (byte)
+$l_subject = 80;                # Maximum title value (byte)
+$l_value = 30*1024;             # Maximum content value (byte)
+$l_line = 200;                  # Maximum number of lines of content
+$check = 5;                     # Number of double write checks (checks up to the latest -$check)
 
-# ¦“Šeƒ‰ƒ“ƒLƒ“ƒO‚É‚Â‚¢‚Ä
-# –ˆŒ2í—ŞˆÈã‚ÌDBƒtƒ@ƒCƒ‹‚ª©“®¶¬‚³‚ê‚Ü‚·B’·ŠúŠÔg—p‚·‚éê‡‚Í’èŠú“I‚ÉŒÃ‚¢ƒtƒ@ƒCƒ‹‚ğ‘|œ‚µ‚Ä‚­‚¾‚³‚¢B
-# ‰^—pƒT[ƒo[‚ğ•ÏX‚µ‚½ê‡‚ÍŒÃ‚¢DBƒtƒ@ƒCƒ‹‚ªg—p‚Å‚«‚È‚¢ê‡‚ª‚ ‚è‚Ü‚·BPerl‚âƒT[ƒo[OS‚Ìƒo[ƒWƒ‡ƒ“XV‚Å
-# g—p‚Å‚«‚È‚­‚È‚éê‡‚à‚ ‚è‚Ü‚·B“™X•Ûç«‚ª’á‚¢‚Ì‚Å‚±‚Ì‹@”\‚ğ’·ŠúŠÔg‚¢‘±‚¯‚é‚Ì‚Í”ñ„§‚Æ‚µ‚Ü‚·B
-$rankkey = 0;                # “Šeƒ‰ƒ“ƒLƒ“ƒO 0:•sg—p 1:g—p
-$rankdef = 3;                # ƒ‰ƒ“ƒLƒ“ƒO•\¦Œ”iŒ’PˆÊj
-$action = "fuckin";          # “Še‚Ìaction–¼
-# $redirect='http://redirector‚ÌURL'; # redirector‚ÌURLBredirector‚ğg—p‚µ‚È‚¢ê‡‚Í‹ó—“''‚Ü‚½‚Í#‚ÅƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‰º‚³‚¢
+# *About the submission ranking.
+# Two or more DB files are automatically generated each month. If you use the software for a long period of time, please clean up old files periodically.
+# Old DB files may become unusable if you change the server you are using or if you update the version of Perl or server OS.
+# The old DB files may not be usable if you change the operation server. It is deprecated to use this function for a long period of time due to low maintainability.
 
-# URL©“®æ“¾
+$rankkey = 0;                # Submission Ranking 0:Not used 1:Used
+$rankdef = 3;                # Number of ranking displays (per month)
+$action = "fuckin";          # Action name at time of submission --- by the way, I didnt edit this. Look in the og code lmao
+# $redirect='http://redirectornoURL'; # redirectornoURLã€‚redirectorIf you do not use '', comment it out with a blank '' or #.
+
+# URLè‡ªå‹•å–å¾—
 $scriptname = substr($ENV{SCRIPT_NAME}, rindex($ENV{SCRIPT_NAME}, '/') + 1);              # bbs.cgi
 if($ENV{'HTTPS'}){ $serverurl = 'https://' . $ENV{'SERVER_NAME'}; }
 else{ $serverurl = 'http://' . $ENV{'SERVER_NAME'}; }
@@ -161,60 +162,64 @@ $baseurl = $serverurl . substr($ENV{SCRIPT_NAME}, 0, rindex($ENV{SCRIPT_NAME}, '
 $scripturl = $baseurl . $scriptname;                                                      # https?://taiyaki.s8.xrea.com(:port)?/cgi-bin/bbs.cgi
 $imgdirurl = $baseurl . substr($imgdir, rindex($imgdir, '/') + 1) . '/';                  # https?://taiyaki.s8.xrea.com(:port)?/cgi-bin/data/
 
-# ¦ã‹LURL©“®æ“¾‚ª“®ì‚µ‚È‚¢ê‡‚Í‚·‚×‚ÄƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‰º‹L‚Ì2‚Â‚Ì•Ï”‚ğè“®‚Åİ’è‚µ‚Ä‚­‚¾‚³‚¢B
-# $scriptname = 'ƒXƒNƒŠƒvƒgƒtƒ@ƒCƒ‹–¼'; $baseurl = 'http://İ’uƒT[ƒo[‚ÌƒzƒXƒg–¼/ƒXƒNƒŠƒvƒgİ’uDir/'; 
-# İ’è—á
+# *If the above URL auto-retrieval does not work, comment out everything and set the following two variables manually.
+
+# $scriptname = 'Script file name'; $baseurl = 'http://Hostname of installation server/Script installation Dir/'; 
+# Example configuration
 # $scriptname = 'bbs.cgi';
 # $baseurl = 'http://taiyaki.s8.xrea.com/cgi-bin/';
 
-# ‚±‚ÌƒXƒNƒŠƒvƒg‚Ì‘Š‘ÎƒpƒX
+# Relative path of this script
 $scriptrel = './' . $scriptname;
+##################################
+# Im not translating the comments after this, assuming whom wants to install this wants a vanilla copy of the software or has a translator.
+##################################
 
 ##################################
-# ƒpƒ‰ƒ[ƒ^[Œˆ’è/•ªŠòˆ—
+# ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼æ±ºå®š/åˆ†å²å‡¦ç†
 ##################################
 
-# Œf¦”ÂƒRƒAƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ
+# æ²ç¤ºæ¿ã‚³ã‚¢ãƒ©ã‚¤ãƒ–ãƒ©ãƒªèª­ã¿è¾¼ã¿
 require $bbscore;
 
-# ƒ‚ƒoƒCƒ‹”»’è
+# ãƒ¢ãƒã‚¤ãƒ«åˆ¤å®š
 if ($ENV{'QUERY_STRING'} =~ /mobile=1/) {
 	$FORM{'mobile'} = 1;
 	$scriptrel .= '?mobile=1' ;
 }
 
-# CSS“Ç‚İ‚İ
+# CSSèª­ã¿è¾¼ã¿
 require $cssloader;
 if (! $FORM{'mobile'}) { $css = &css($bgcdef, $textc, $linkc, $vlinkc, $alinkc, $subjc, $resc, 'pc'); }
 else { $css = &css($bgcdef, $textc, $linkc, $vlinkc,$alinkc,$subjc, $resc, 'mobile'); }
 
-# ˆ—
+# æ™‚åˆ»å‡¦ç†
 $time = time;
 ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = gmtime($time + 9 * 60 * 60);
 $mon++;
 $year += 1900;
 foreach ($sec, $min, $hour, $mday, $mon, $year) { $_ = sprintf("%02d", $_); }
-$wdayja = ('“ú','Œ','‰Î','…','–Ø','‹à','“y')[$wday];
-$datenow = "$year”N$monŒ$mday“ú($wdayja)$hour$min•ª$sec•b";
+$wdayja = ('Sun','Mon','Tues','Wed','Thurs','Fri','Sat')[$wday];
+$datenow = "$yearYear$monMonth$mdayDay($wdayja)$hourHour$minMin$secSec";
 
-# “ŠeƒR[ƒh”­s
+# æŠ•ç¨¿ã‚³ãƒ¼ãƒ‰ç™ºè¡Œ
 $code = ($time + $codekey) * $codesalt;
 
-# ‰ß‹ƒƒOƒtƒ@ƒCƒ‹–¼æ“¾
+# éå»ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«åå–å¾—
 $logfiledate = "$logdir/$year$mon.html";
 
-#ƒ‰ƒ“ƒLƒ“ƒOƒtƒ@ƒCƒ‹–¼æ“¾
+#ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãƒ•ã‚¡ã‚¤ãƒ«åå–å¾—
 $rankfile = "$rankdir/$year$mon";
 
-# •\¦—p’PˆÊ’²®
+# è¡¨ç¤ºç”¨å˜ä½èª¿æ•´
 $l_all_kb = int($l_all / 1024);
 $l_all_mb = int(($l_all / 1024 / 1024) * 10) / 10;
 $l_imgdir_mb = sprintf('%.f', $l_imgdir / 1024 / 1024);
 
-# ƒfƒR[ƒh
+# ãƒ‡ã‚³ãƒ¼ãƒ‰
 &decode;
 
-# •\¦Œ”‚ÌŒˆ’è
+# è¡¨ç¤ºä»¶æ•°ã®æ±ºå®š
 if ($FORM{'num'} =~ /^\d+$/) {
 	if ($FORM{'num'} < $nummin) { $num = $nummin; }
 	elsif ($FORM{'num'} <= $nummax) { $num = $FORM{'num'}; }
@@ -225,30 +230,30 @@ else {
 	else { $num = $nummbdef; }
 }
 
-# •\¦F‚ÌŒˆ’è
+# è¡¨ç¤ºè‰²ã®æ±ºå®š
 if ($FORM{'bgcolor'} =~ /^([0-9]|[a-f]){6}$/i) { $bgc = $FORM{'bgcolor'}; }
 else { $bgc = $bgcdef; }
 $body  = "<body id='top' bgcolor='#$bgc' text='#$textc' link='#$linkc' vlink='#$vlinkc' alink='#$alinkc'>";
 
-# URL©“®•ÏŠ·‚ÌON/OFF
+# URLè‡ªå‹•å¤‰æ›ã®ON/OFF
 if ($ENV{'REQUEST_METHOD'} eq 'GET' && !$FORM{'action'} && !$FORM{'autolink'}) { $autolink = $autolinkdef; }
 elsif ($FORM{'autolink'} eq '1') { $autolink = 1; }
 else { $autolink = 0; }
 $chklink = ' checked' if ($autolink == 1);
 
-# ƒAƒbƒvƒ[ƒh‰æ‘œ•\¦‚ÌON/OFF
+# ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ç”»åƒè¡¨ç¤ºã®ON/OFF
 if ($ENV{'REQUEST_METHOD'} eq 'GET' && !$FORM{'action'} && !$FORM{'imgview'} ) { $imgview = $imgviewdef; }
 elsif ($FORM{'imgview'} eq '1') { $imgview = 1; }
 else { $imgview = 0; }
 $chkimg = ' checked' if ($imgview == 1);
 
-# Youtube Video URL©“®•ÏŠ·‚ÌON/OFF
+# Youtube Video URLè‡ªå‹•å¤‰æ›ã®ON/OFF
 if ($ENV{REQUEST_METHOD} eq 'GET' && ! $FORM{'action'} && ! $FORM{video}){ $video = $videodef; }
 elsif ($FORM{'video'} == '1') { $video = 1;}
 else { $video = 0; }
 $chkvideo = ' checked' if ($video == 1);
 
-# –ß‚éLink“™‚Åg—p‚·‚éŠî–{ƒpƒ‰ƒ[ƒ^[‚ÌƒNƒGƒŠ/inputƒ^ƒO
+# æˆ»ã‚‹Linkç­‰ã§ä½¿ç”¨ã™ã‚‹åŸºæœ¬ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®ã‚¯ã‚¨ãƒª/inputã‚¿ã‚°
 $basequery = "num=$num&bgcolor=$bgc&autolink=$autolink&imgview=$imgview&video=$video";
 $baseinput = <<"EOF";
 <input type="hidden" name="name" value="$FORM{'name'}">
@@ -260,25 +265,25 @@ $baseinput = <<"EOF";
 <input type="hidden" name="video" value="$video">
 EOF
 
-# ¡šŸQlFƒ{ƒ^ƒ“Œo—R‚ÌƒT[ƒ`ƒpƒ‰ƒ[ƒ^[Ä’è‹`
+# â– â˜…â—‡â—†å‚è€ƒï¼šãƒœã‚¿ãƒ³çµŒç”±ã®ã‚µãƒ¼ãƒãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼å†å®šç¾©
 if ($ENV{'REQUEST_METHOD'} eq 'POST' && !$FORM{'action'}) {
 	foreach $key (keys %FORM) {
-		if ($FORM{$key} eq '¡' && $key =~ /^\d{14}$/) {
+		if ($FORM{$key} eq 'â– ' && $key =~ /^\d{14}$/) {
 			$FORM{'action'} = 'search1';
 			$FORM{'search'} = $key;
 			last;
 		}
-		elsif ($FORM{$key} eq 'š' && $key =~ /^(%25[0-9a-f][0-9a-f])+$/) {
+		elsif ($FORM{$key} eq 'â˜…' && $key =~ /^(%25[0-9a-f][0-9a-f])+$/) {
 			$FORM{'action'} = 'search2';
 			$FORM{'searchname'} = $key;
 			last;
 		}
-		elsif (($FORM{$key} eq '' || $FORM{$key} eq 'Ÿ') && $key =~ /^\d{14}$/) {
+		elsif (($FORM{$key} eq 'â—‡' || $FORM{$key} eq 'â—†') && $key =~ /^\d{14}$/) {
 			$FORM{'action'} = 'thread';
 			$FORM{'thread'} = $key;
 			last;
 		}
-		elsif ($FORM{$key} eq 'QlF' && $key =~ /^\d{14}$/) {
+		elsif ($FORM{$key} eq 'Refï¼š' && $key =~ /^\d{14}$/) {
 			$FORM{'action'} = 'search1';
 			$FORM{'search'} = $key;
 			last;
@@ -286,14 +291,14 @@ if ($ENV{'REQUEST_METHOD'} eq 'POST' && !$FORM{'action'}) {
 	}
 }
 
-# Œf¦”Â‰‰ñ‹N“®
+# æ²ç¤ºæ¿åˆå›èµ·å‹•æ™‚
 if (!(-s $passfile)) {
 	if (! $FORM{'action'}) { &passform; }
 	else { &registerpass; }
 	exit;
 }
 
-# •ªŠòˆ—
+# åˆ†å²å‡¦ç†
 if ($ENV{'REQUEST_METHOD'} eq 'POST' && $FORM{'action'} eq $action && ($FORM{'value'} || $GLOB{'img'})) { &register;  }
 elsif ($FORM{'action'} eq 'ranking' && $rankkey) { &viewrank; }
 elsif ($FORM{'action'} eq 'search1') { &search1; }
@@ -325,10 +330,10 @@ elsif ($ENV{'REQUEST_METHOD'} eq 'POST' && $FORM{'action'} eq 'delmsg') {
 else { &html; }
 
 ##################################
-# htmlo—Í
+# htmlå‡ºåŠ›
 ##################################
 
-# ---------------- ƒwƒbƒ_[
+# ---------------- Header
 sub header {
 
 	print "Content-type: text/html\n\n";
@@ -336,6 +341,7 @@ sub header {
 <!DOCTYPE html>
 <html><head>
 <meta charset="shift-jis">
+<!-- Line 344 of bbs.cgi if you want to change it -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="$baseurl">
 <link rel="canonical" href="$baseurl$scriptname">
@@ -343,11 +349,11 @@ EOF
 
 }
 
-# ---------------- HTMLƒƒCƒ“
+# ---------------- HTML Main
 sub html {
 
 	local ($usage, $imgnum, $info, @lines, $total, $page, $page_all, $start, $end, $next, $i, $j);
-	local $rankinfo = qq(<a href="$scriptrel?action=ranking" target="_blank" rel="noopener noreferrer">“Šeƒ‰ƒ“ƒLƒ“ƒOTOP10</a>) if ($rankkey);
+	local $rankinfo = qq(<a href="$scriptrel?action=ranking" target="_blank" rel="noopener noreferrer">Submission Ranking TOP 10</a>) if ($rankkey);
 	local $counter = &counter;
 
 	if ($imgctrl eq 'size') {
@@ -365,7 +371,7 @@ sub html {
 		$info = "$imgnum/${l_imgnum}Files";
 	}
 
-	open(DB, $bbsfile) || &error("$bbsfile‚ğŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½B0byte‚Ìƒtƒ@ƒCƒ‹‚ğì¬‚·‚é‚©ƒpƒX‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B", __LINE__);
+	open(DB, $bbsfile) || &error("$bbsfile could not be opened, please create a 0-byte file or check the path.", __LINE__);
 	@lines = <DB>;
 	close(DB);
 	$total = @lines;
@@ -379,7 +385,7 @@ sub html {
 		$page = 1;
 	}
 
-	# •\¦ƒy[ƒW”Ô†Œˆ’è
+	# è¡¨ç¤ºãƒšãƒ¼ã‚¸ç•ªå·æ±ºå®š
 	$FORM{'page'} =~ s/\D//g;
 	if (! $page) {
 		if ($FORM{'start'}  || $FORM{'reload'}) { $page = 1; }
@@ -403,43 +409,43 @@ $css
 </head>
 EOF
 
-# ---------------- ã•”ƒiƒr/“ŠeƒtƒH[ƒ€
-	if (! $FORM{'mobile'}) { # PCƒ‚[ƒh
+# ---------------- ä¸Šéƒ¨ãƒŠãƒ“/æŠ•ç¨¿ãƒ•ã‚©ãƒ¼ãƒ 
+	if (! $FORM{'mobile'}) { # PCãƒ¢ãƒ¼ãƒ‰
 		print <<"EOF";
 $body
 
 <font size="+1"><b>$title</b></font>
 <font size="-1"><b>
 <a href="./$scriptname?mobile=1">Mobile</a>
-<a href="$homeurl" target="_blank" rel="noopener noreferrer">ƒz[ƒ€ƒy[ƒW</a> $rankinfo
-<a href="mailto:$mailadd">˜A—æ</a>
+<a href="$homeurl" target="_blank" rel="noopener noreferrer">Index</a> $rankinfo
+<a href="mailto:$mailadd">Contact</a>
 </b></font><br><br>
 EOF
 
-	&form($FORM{'name'}, $FORM{'email'}, '', '', '', '“Še^ƒŠƒ[ƒh', ''); 
+	&form($FORM{'name'}, $FORM{'email'}, '', '', '', 'Post/Reload', ''); 
 
 	print <<"EOF";
 <br><br>
-<font size="-1">$countdate‚©‚ç $counter (‚±‚í‚ê‚É‚­‚³ƒŒƒxƒ‹$countlevel)<br>
-<hr>Å‹ß‚Ì‰ß‹ƒƒO‚Í<a href="$scriptrel?action=getlog&data=$year$mon.html&start=1&end=31" target="_blank" rel="noopener noreferrer">‚±‚±</a>B
-Ì‚ÌƒƒO‚Í<a href="$scriptrel?action=selectlog"  target="_blank" rel="noopener noreferrer">‚±‚±</a>B
-‚ ‚â‚µ‚¢‚í[‚é‚ÇŠÖ˜A‚Í<a href="http://www.geocities.com/Tokyo/Dojo/5886/link/" target="_blank" rel="noopener noreferrer">‚±‚±</a>‚Å’²¸B<br>
-<hr>¡ƒtƒHƒ[“Še‰æ–Ê &nbsp;š“ŠeÒŒŸõ &nbsp;ƒXƒŒƒbƒh(V‹K) &nbsp;ŸƒXƒŒƒbƒh(q‹L–)&nbsp;&nbsp; 
-Å‘å“o˜^Œ” $l_recordŒ &nbsp;&nbsp; •Û‘¶‰æ‘œ $info
+<font size="-1">$countdate from $counter (Debris resistance level $countlevel)<br>
+<hr>The recent logs are<a href="$scriptrel?action=getlog&data=$year$mon.html&start=1&end=31" target="_blank" rel="noopener noreferrer">these</a>.
+The old logs are <a href="$scriptrel?action=selectlog"  target="_blank" rel="noopener noreferrer">these</a>ã€‚
+The Ayashii Warudo instance is created by <a href="http://taiyaki.s8.xrea.com/TeamMIZUIRO/index.html" target="_blank" rel="noopener noreferrer">TeamMIZUIRO</a>.<br>
+<hr>â–  Reply to Post &nbsp;â˜…Poster search &nbsp;â—‡Thread (New) &nbsp;â—†Thread (Reply)&nbsp;&nbsp; 
+Maximum number of registrations $l_recordä»¶ &nbsp;&nbsp; Preserved images $info
 </font>
-<hr><input type="submit" value="“Še^ƒŠƒ[ƒh">
+<hr><input type="submit" value="Postï¼Reload">
 </form>
 EOF
 	}
-	else { # Mobileƒ‚[ƒh
+	else { # Mobileãƒ¢ãƒ¼ãƒ‰
 		print "$body\n";
 
-		&mbform($FORM{'name'}, $FORM{'email'}, '', '', '', '“Še^ƒŠƒ[ƒh', '');
+		&mbform($FORM{'name'}, $FORM{'email'}, '', '', '', 'Post/Reload', '');
 
 		print "</form>\n";
 	}
 
-# ---------------- ‹L––{•¶
+# ---------------- è¨˜äº‹æœ¬æ–‡
 	print "<form class='article' method='POST' action='$scriptrel'>\n";
 	print "$baseinput\n";
 
@@ -454,35 +460,35 @@ EOF
 
 	print "</form><hr>\n";
 
-# ---------------- ƒy[ƒW‘—‚è
+# ---------------- ãƒšãƒ¼ã‚¸é€ã‚Š
 	&pagination($num, $page, $page_all);
 
-# ---------------- ‰º•”ƒiƒr
+# ---------------- ä¸‹éƒ¨ãƒŠãƒ“
 	if (! $FORM{'mobile'}) {
-		print "<small>&nbsp;V’…‡", $start + 1, '-', $end + 1, "”Ô–Ú‚Ì‹L–‚ğ•\\¦‚µ‚Ü‚µ‚½B</small>\n";
-		print "<small>‚±‚êˆÈ‰º‚Ì‹L–‚Í‚ ‚è‚Ü‚¹‚ñB</small>\n" if ($page == $page_all);
+		print "<small>&nbsp;Most Recent Arrivals", $start + 1, '-', $end + 1, "The second post is shown in the table.</small>\n";
+		print "<small>We cannot find any more posts.</small>\n" if ($page == $page_all);
 		print "<br>\n";
 	}
 	else{
-		print "<br><span class='c2'>", $start + 1, '-', $end + 1, "”Ô–Ú‚Ì‹L–‚ğ•\\¦‚µ‚Ü‚µ‚½B\n";
-		print "‚±‚êˆÈ‰º‚Ì‹L–‚Í‚ ‚è‚Ü‚¹‚ñB" if ($page == $page_all);
+		print "<br><span class='c2'>", $start + 1, '-', $end + 1, "The second post is shown in the table. \n";
+		print "We cannot find any more posts.ã€‚" if ($page == $page_all);
 		print "</span>\n";
 	}
 
-	print "<br><a href='$scriptrel#top'>¢TOP</a>\n";
+	print "<br><a href='$scriptrel#top'>â–³TOP</a>\n";
 
 	&footer;
 
 } # html end
 
 
-# ---------------- ƒtƒbƒ^[
+# ---------------- ãƒ•ãƒƒã‚¿ãƒ¼
 sub footer{
 
 	if (! $FORM{'mobile'}) {
 	print <<"EOF";
 <hr size="5"><div align="right"><font size="-1">
-‚ ‚â‚µ‚¢‚í[‚é‚Ç—‚¶‚å‚µ‚ ‚È + <a href="http://taiyaki.s8.xrea.com/TeamMIZUIRO/index.html" target="_blank" rel="noopener noreferrer">TeamMIZUIRO</a> v3.10d
+AyashiiWorld@joshiana + <a href="http://taiyaki.s8.xrea.com/TeamMIZUIRO/index.html" target="_blank" rel="noopener noreferrer">TeamMIZUIRO</a> v3.10d + <a href="https://github.com/ShockAwer/TeamMIZUIRO-Ayashii">translated by jr</a>
 </font></div>
 EOF
 	}
