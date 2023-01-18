@@ -112,7 +112,7 @@ $l_logsearch = 1000;      # Maximum number of past log search results displayed
 $l_keyword = 50;          # Maximum value of keywords for log search (bytes)
 
 # 投稿コードとスパム対策
-$codemode = 1;            # Posting code mode 0:Posting code hidden 1:Text picture posting code displayed only on PC 2:Text picture posting code displayed on both PC and Mobile
+$codemode = 0;            # Posting code mode 0:Posting code hidden 1:Text picture posting code displayed only on PC 2:Text picture posting code displayed on both PC and Mobile
 $spammode = 1;            # Anti-spam by post content (number of URLs/languages used, etc.) 0:Do not use 1:Apply only to posts without uploaded images 2:Apply to all posts
 
 # Submission Code Details
