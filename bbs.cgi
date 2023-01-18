@@ -1,4 +1,4 @@
-#! /usr/local/bin/perl
+#! /usr/bin/perl
 
 # Error Checking. Please uncomment when editing scripts (Perl5 environment required).
 use CGI::Carp qw(fatalsToBrowser); 
