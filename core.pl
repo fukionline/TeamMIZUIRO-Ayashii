@@ -1,23 +1,23 @@
 # core.pl v1.03 2022/06/01
 
 ##################################
-# “ŠeƒtƒH[ƒ€
+# æŠ•ç¨¿ãƒ•ã‚©ãƒ¼ãƒ 
 ##################################
 
 sub form {
 
 	local($name, $email, $value, $subject, $hpage, $button, ,$thread, $flag) = @_;
-	local $reset = " <small><a href='$scriptrel' title='“ŠeÒ–¼‚»‚Ì‘¼‘S•\\¦İ’è‚ÌƒŠƒZƒbƒg'>*Reset</a></small>" if ($flag ne 'search1');
+	local $reset = " <small><a href='$scriptrel' title='Reset of all table settings including contributor name'>*Reset</a></small>" if ($flag ne 'search1');
 	print <<"EOF";
 <form class="main" method="POST" enctype="multipart/form-data" action="$scriptrel">
 <input type="hidden" name="action" value="$action">
-“ŠeÒ <input type="text" name="name" size="20" maxlength="40" value="$name">$reset<br>
-ƒ[ƒ‹ <input type="text" name="email" size="30" value="$email"><br>
-‘è–¼@ <input type="text" name="subject" size="30" value="$subject"> 
-<input type="submit" value="$button"><input type="reset" value="Á‚·"><br>
-‰æ‘œ <small>(GIF JPG PNG  •${l_width}x${l_height}px ƒTƒCƒY${l_all_kb}KB‚Ü‚Å)</small><br>
+Name <input type="text" name="name" size="20" maxlength="40" value="$name">$reset<br>
+E-Mail <input type="text" name="email" size="30" value="$email"><br>
+Subjectã€€ <input type="text" name="subject" size="30" value="$subject"> 
+<input type="submit" value="$button"><input type="reset" value="æ¶ˆã™"><br>
+Image <small>(GIF JPG PNG  {l_width}x${l_height}px | Max file size is {l_all_kb} KB)</small><br>
 <input type=file size="30" name="filedata" accept=".gif,.jpeg,.jpg,.png"><br>
-“à—e <small>“K“–‚É‰üs‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢B‰æ‘œ‚Æ“à—e‚ª—¼•û‚Æ‚à–³‚¢ó‘Ô‚Å“Šeƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚ÆƒŠƒ[ƒh‚É‚È‚è‚Ü‚·B</small><br>
+Contents <small>Please insert line breaks as appropriate. If you press the submit button without both images and content, it will reload.</small><br>
 <textarea name="value" rows="5" cols="70" wrap="off">$value</textarea>
 <input type="hidden" name="hpage" value="$hpage"><br>
 EOF
@@ -31,40 +31,40 @@ EOF
 	if ($flag eq 'search1') {
 		print <<"EOF";
 
-URL©“®Link<input type="checkbox" name="autolink" value="1"$chklink>
+URLè‡ªå‹•Link<input type="checkbox" name="autolink" value="1"$chklink>
 <input type="hidden" name="num" value="$num">
 <input type="hidden" name="bgcolor" value="$bgc">
 <input type="hidden" name="imgview" value="$imgview">
 <input type="hidden" name="video" value="$video">
 <input type="hidden" name="thread" value="$thread">
 &nbsp;
-<input type="submit" value="$button"><input type="reset" value="Á‚·">
+<input type="submit" value="$button"><input type="reset" value="Reset">
 EOF
 	}
 	else {
 	print <<"EOF";
-<font size="-1">URL©“®Link<input type="checkbox" name="autolink" value="1"$chklink>(“Še‚É“K—p)&nbsp;
-•\\¦Œ”<input type="text" name="num" size="2" value="$num">&nbsp;
-”wŒiF<input type="text" name="bgcolor" size="4" value="$bgc">&nbsp;
-‰æ‘œ•\\¦<input type="checkbox" name="imgview" value="1"$chkimg>&nbsp;
-YouTube“®‰æ<input type="checkbox" name="video" value="1"$chkvideo>
+<font size="-1">URL Auto Link<input type="checkbox" name="autolink" value="1"$chklink>(Applicable at the time of submission)&nbsp;
+total number of posts shown on the list<input type="text" name="num" size="2" value="$num">&nbsp;
+background color<input type="text" name="bgcolor" size="4" value="$bgc">&nbsp;
+picture display<input type="checkbox" name="imgview" value="1"$chkimg>&nbsp;
+YouTube Video<input type="checkbox" name="video" value="1"$chkvideo>
 </font>
 EOF
 	}
 
-}# form end (formƒ^ƒO‚ÍŒÄ‚Ño‚µŒ³‚Å•Â‚¶‚ç‚ê‚éd—l‚Å‚·)
+}# form end (formã‚¿ã‚°ã¯å‘¼ã³å‡ºã—å…ƒã§é–‰ã˜ã‚‰ã‚Œã‚‹ä»•æ§˜ã§ã™)
 
 sub mbform {
 	local($name, $email, $value, $subject, $hpage, $button, ,$thread, $flag) = @_;
 	local $reset = " <a href='$scriptrel'>*Reset</a>" if($flag ne 'search1');
-	local $pclink = "ô$counter &nbsp;<a href='./$scriptname'>PC</a>" if($flag ne 'search1');
+	local $pclink = "â™ª$counter &nbsp;<a href='./$scriptname'>PC</a>" if($flag ne 'search1');
 	print <<"EOF";
 <form class="main" method="POST" enctype="multipart/form-data" action="$scriptrel">
 <input type="hidden" name="action" value="$action">
-–¼‘O <input type="text" name="name" size="14" value="$name">
+åå‰ <input type="text" name="name" size="14" value="$name">
 $pclink<br>
 <input type="hidden" name="email" size="12" value="$email">
-‘è–¼ <input type="text" name="subject" size="14" value="$subject">
+é¡Œå <input type="text" name="subject" size="14" value="$subject">
 $reset<br>
 <input type=file size="12" name="filedata" accept=".gif,.jpeg,.jpg,.png"><br>
 <textarea name="value" rows="5" cols="37">$value</textarea>
@@ -79,7 +79,7 @@ EOF
 	}
 	print <<"EOF";
 <input type="submit" class="main" value="$button">
-<input type="reset" value="Á">
+<input type="reset" value="Reset">
 Lin<input type="checkbox" name="autolink" value="1"$chklink>
 <input type="text" name="num" class="num" value="$num">
 EOF
@@ -95,81 +95,81 @@ sub aacode {
 	local @lines = split(//, $codeB);
 	foreach (@lines) {
 if ($_ ==1 ) {
-$l1 .= '@@¡@';
-$l2 .= '@@¡@';
-$l3 .= '@@¡@';
-$l4 .= '@@¡@';
-$l5 .= '@@¡@';
+$l1 .= 'ã€€ã€€â– ã€€';
+$l2 .= 'ã€€ã€€â– ã€€';
+$l3 .= 'ã€€ã€€â– ã€€';
+$l4 .= 'ã€€ã€€â– ã€€';
+$l5 .= 'ã€€ã€€â– ã€€';
 }
 elsif ($_== 2) {
-$l1 .= '¡¡¡@';
-$l2 .= '@@¡@';
-$l3 .= '¡¡¡@';
-$l4 .= '¡@@@';
-$l5 .= '¡¡¡@';
+$l1 .= 'â– â– â– ã€€';
+$l2 .= 'ã€€ã€€â– ã€€';
+$l3 .= 'â– â– â– ã€€';
+$l4 .= 'â– ã€€ã€€ã€€';
+$l5 .= 'â– â– â– ã€€';
 }
 elsif ($_ == 3) {
-$l1 .= '¡¡¡@';
-$l2 .= '@@¡@';
-$l3 .= '¡¡¡@';
-$l4 .= '@@¡@';
-$l5 .= '¡¡¡@';
+$l1 .= 'â– â– â– ã€€';
+$l2 .= 'ã€€ã€€â– ã€€';
+$l3 .= 'â– â– â– ã€€';
+$l4 .= 'ã€€ã€€â– ã€€';
+$l5 .= 'â– â– â– ã€€';
 }
 elsif ($_ == 4){
-$l1 .= '¡@¡@';
-$l2 .= '¡@¡@';
-$l3 .= '¡¡¡@';
-$l4 .= '@@¡@';
-$l5 .= '@@¡@';
+$l1 .= 'â– ã€€â– ã€€';
+$l2 .= 'â– ã€€â– ã€€';
+$l3 .= 'â– â– â– ã€€';
+$l4 .= 'ã€€ã€€â– ã€€';
+$l5 .= 'ã€€ã€€â– ã€€';
 }
 elsif ($_ == 5){
-$l1 .= '¡¡¡@';
-$l2 .= '¡@@@';
-$l3 .= '¡¡¡@';
-$l4 .= '@@¡@';
-$l5 .= '¡¡¡@';
+$l1 .= 'â– â– â– ã€€';
+$l2 .= 'â– ã€€ã€€ã€€';
+$l3 .= 'â– â– â– ã€€';
+$l4 .= 'ã€€ã€€â– ã€€';
+$l5 .= 'â– â– â– ã€€';
 }
 elsif ($_ == 6){
-$l1 .= '¡¡¡@';
-$l2 .= '¡@@@';
-$l3 .= '¡¡¡@';
-$l4 .= '¡@¡@';
-$l5 .= '¡¡¡@';
+$l1 .= 'â– â– â– ã€€';
+$l2 .= 'â– ã€€ã€€ã€€';
+$l3 .= 'â– â– â– ã€€';
+$l4 .= 'â– ã€€â– ã€€';
+$l5 .= 'â– â– â– ã€€';
 }
 elsif ($_ == 7){
-$l1 .= '¡¡¡@';
-$l2 .= '@@¡@';
-$l3 .= '@¡@@';
-$l4 .= '¡@@@';
-$l5 .= '¡@@@';
+$l1 .= 'â– â– â– ã€€';
+$l2 .= 'ã€€ã€€â– ã€€';
+$l3 .= 'ã€€â– ã€€ã€€';
+$l4 .= 'â– ã€€ã€€ã€€';
+$l5 .= 'â– ã€€ã€€ã€€';
 }
 elsif ($_ == 8){
-$l1 .= '¡¡¡@';
-$l2 .= '¡@¡@';
-$l3 .= '¡¡¡@';
-$l4 .= '¡@¡@';
-$l5 .= '¡¡¡@';
+$l1 .= 'â– â– â– ã€€';
+$l2 .= 'â– ã€€â– ã€€';
+$l3 .= 'â– â– â– ã€€';
+$l4 .= 'â– ã€€â– ã€€';
+$l5 .= 'â– â– â– ã€€';
 }
 elsif ($_ == 9){
-$l1 .= '¡¡¡@';
-$l2 .= '¡@¡@';
-$l3 .= '¡¡¡@';
-$l4 .= '@@¡@';
-$l5 .= '¡¡¡@';
+$l1 .= 'â– â– â– ã€€';
+$l2 .= 'â– ã€€â– ã€€';
+$l3 .= 'â– â– â– ã€€';
+$l4 .= 'ã€€ã€€â– ã€€';
+$l5 .= 'â– â– â– ã€€';
 }
 elsif ($_ == 0){
-$l1 .= '¡¡¡@';
-$l2 .= '¡@¡@';
-$l3 .= '¡@¡@';
-$l4 .= '¡@¡@';
-$l5 .= '¡¡¡@';
+$l1 .= 'â– â– â– ã€€';
+$l2 .= 'â– ã€€â– ã€€';
+$l3 .= 'â– ã€€â– ã€€';
+$l4 .= 'â– ã€€â– ã€€';
+$l5 .= 'â– â– â– ã€€';
 }
 	}
-if (! $FORM{'mobile'}) { $msg = '‰º‚Ì4Œ…‚Ì”š‚ğ‹L“ü‚µ‚Ä‚­‚¾‚³‚¢';}
-else { $msg = '‰º‚Ì”š‚ğ‹L“ü' }
+if (! $FORM{'mobile'}) { $msg = 'Please fill in the last 4 digits';}
+else { $msg = 'Fill in the numbers below' }
 		print <<"EOF";
 <input type="hidden" name="codeA" value="$codeA">
-“ŠeƒR[ƒh <input type="text" class="code" name="codeB" size="4"><small> ($msg)</small>
+Post code <input type="text" class="code" name="codeB" size="4"><small> ($msg)</small>
 <pre class="code">$l1
 $l2
 $l3
@@ -180,47 +180,47 @@ EOF
 } # aacode end
 
 ##################################
-# ‹L–‚Ìo—Í
+# è¨˜äº‹ã®å‡ºåŠ›
 ##################################
 
 sub disp {
 
-	# ƒkƒ‹ƒR[ƒh‚É•ÏŠ·‹L˜^‚µ‚½”¼ŠpƒJƒ“ƒ}‚ğ•œŒ³
+	# ãƒŒãƒ«ã‚³ãƒ¼ãƒ‰ã«å¤‰æ›è¨˜éŒ²ã—ãŸåŠè§’ã‚«ãƒ³ãƒã‚’å¾©å…ƒ
 	foreach (@_) { $_ =~ s/\x00/,/g; } 
 	local($date, $name, $email, $value, $subject, $hpage, $img, $w, $h, $search, $code, $thread, $flag) = @_;
 	local $datenum = &digit($date);
 	local( $mark, $thbutton, $size, $tagfront, $tagrear, $vflag, @vlines, $refdate, $refdatenum);
-	# ‹Œƒo[ƒWƒ‡ƒ“ƒf[ƒ^¬İ—p‚ÌˆÀ‘S‘•’u
+	# æ—§ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿æ··åœ¨æ™‚ç”¨ã®å®‰å…¨è£…ç½®
 	chomp($thread); 
 
 	print "<hr><font size='+1' color='#$subjc'><b>$subject</b></font>";
 
-	if ($email) { print "@“ŠeÒF<b><a href='mailto:$email'>$name</a></b>\n"; }
-	else { print "@“ŠeÒF<font color='#$subjc'><b>$name</b></font>\n"; }
+	if ($email) { print "ã€€Posterï¼š<b><a href='mailto:$email'>$name</a></b>\n"; }
+	else { print "ã€€Posterï¼š<font color='#$subjc'><b>$name</b></font>\n"; }
 
 	print <<"EOF";
-<font size="-1">@“Še“úF$date</font> &nbsp;
-<input class="search" type="submit" name="$datenum" value="¡">&nbsp;
-<input class="search" type="submit" name="$search" value="š">&nbsp;
+<font size="-1">ã€€Postedï¼š$date</font> &nbsp;
+<input class="search" type="submit" name="$datenum" value="â– ">&nbsp;
+<input class="search" type="submit" name="$search" value="â˜…">&nbsp;
 EOF
 
-	if (&digit($date) == $thread) { print "<input class='search' type='submit' name='$thread' value=''>"; }
-	elsif ($thread) { print "<input class='search' type='submit' name='$thread' value='Ÿ'>"; }
+	if (&digit($date) == $thread) { print "<input class='search' type='submit' name='$thread' value='â—‡'>"; }
+	elsif ($thread) { print "<input class='search' type='submit' name='$thread' value='â—†'>"; }
 
 	print '<p><blockquote><pre>';
 
-	# ‹Œƒo[ƒWƒ‡ƒ“‚ÌWEB‰æ‘œƒCƒƒ^ƒO‚ªc‚Á‚Ä‚¢‚½‚çƒŠƒ“ƒN‚É•ÏŠ·‚·‚é
+	# æ—§ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®WEBç”»åƒã‚¤ãƒ¡ã‚¿ã‚°ãŒæ®‹ã£ã¦ã„ãŸã‚‰ãƒªãƒ³ã‚¯ã«å¤‰æ›ã™ã‚‹
 	$value =~ s!<img src="([^"]+)">!<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>!gi; 
 
 	if ($w && $h) { $size = " width='$w' height='$h'"; }
-	else { $size = ' width="640" height="480"'; } # ˆÀ‘S‘•’u
+	else { $size = ' width="640" height="480"'; } # å®‰å…¨è£…ç½®
 
 	if (($imgview == 0 || $flag eq 'search2' || $flag eq 'thread' || ! (-e "$imgdir/$img")) && $img) { 
 		if (-e "$imgdir/$img") {
-			print "<font color='#ff69b4'>ƒAƒbƒvƒ[ƒh‰æ‘œF</font><a href='$imgdir/$img' target='_blank' rel='noopener noreferrer'>$img</a>\n";
+			print "<font color='#ff69b4'>Upload Imageï¼š</font><a href='$imgdir/$img' target='_blank' rel='noopener noreferrer'>$img</a>\n";
 		}
 		else {
-			print "<font color='#ff69b4'>ƒAƒbƒvƒ[ƒh‰æ‘œF</font><font color='#$resc'>$img (íœÏ‚İ)</font>\n";
+			print "<font color='#ff69b4'>Upload Imageï¼š</font><font color='#$resc'>$img (Deleted)</font>\n";
 		}
 	}
 	elsif ($img) {
@@ -235,7 +235,7 @@ EOF
 		@vlines = split(/\r/, $value);
 		$vflag = 0;
 		foreach (@vlines) {
-			if (/^(&gt;|„)/) {
+			if (/^(&gt;|ï¼)/) {
 				$_ = "<font color='#$resc'>$_</font>";
 			}
 			elsif ($video == 1 && ! $vflag && $flag ne 'search2' && $flag ne 'thread') {
@@ -260,12 +260,12 @@ EOF
 
 	print "</pre><p>\n";
 
-	# hpageŠÖ˜A‚ÌURL‚É‚Í./$scriptname‚ğg—p
+	# hpageé–¢é€£ã®URLã«ã¯./$scriptnameã‚’ä½¿ç”¨
 	if ($hpage =~ m!^\./$scriptname\?action=search1&search=(.*)$! && ! $FORM{'mobile'}) {
 		$refdate = $1;
 		$refdatenum = &digit($refdate);
 		$hpage = "./$scriptname?action=search1&search=$refdatenum";
-		print "<label><input class='rel' type='submit' name='$refdatenum' value='QlF'>";
+		print "<label><input class='rel' type='submit' name='$refdatenum' value='å‚è€ƒï¼š'>";
 		print "$refdate</label>\n";
 	}
 
@@ -279,30 +279,30 @@ sub mbdisp {
 	local($date, $name, $email, $value, $subject, $hpage, $img, $w, $h, $search, $code, $thread, $flag) = @_;
 	local $datenum = &digit($date);
 	local( $mark, $thbutton, $size, $tagfront, $tagrear, $vflag, @vlines, $refdate, $refdatenum);
-	chomp($thread); # ‹Œƒo[ƒWƒ‡ƒ“ƒf[ƒ^¬İ—p
+	chomp($thread); # æ—§ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿æ··åœ¨æ™‚ç”¨
 	(local $prtdate = $date) =~ s!.{6}(\d\d)..(\d\d)..(.{4})(\d\d)..(\d\d).*$!$1/$2$3$4:$5!;
 
 	print "<hr>$subject ";
-	print "F$prtdate &nbsp;<input class='search' type='submit' name='$datenum' value='¡'>&nbsp;\n";
-	if ($datenum == $thread) { print "<input class='search' type='submit' name='$thread' value=''>"; }
-	elsif ($thread) { print "<input class='search' type='submit' name='$thread' value='Ÿ'>"; }
+	print "ï¼š$prtdate &nbsp;<input class='search' type='submit' name='$datenum' value='â– '>&nbsp;\n";
+	if ($datenum == $thread) { print "<input class='search' type='submit' name='$thread' value='â—‡'>"; }
+	elsif ($thread) { print "<input class='search' type='submit' name='$thread' value='â—†'>"; }
 	print "<br>\n";
-	if ($email) { print "–¼‘OF<a href='mailto:$email'>$name</a>&nbsp;\n"; }
-	else { print "–¼‘OF$name&nbsp;\n"; }
-	# ‹Œƒo[ƒWƒ‡ƒ“‚ÌWEB‰æ‘œ‚ğƒŠƒ“ƒN‚É•ÏŠ·
+	if ($email) { print "åå‰ï¼š<a href='mailto:$email'>$name</a>&nbsp;\n"; }
+	else { print "åå‰ï¼š$name&nbsp;\n"; }
+	# æ—§ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®WEBç”»åƒã‚’ãƒªãƒ³ã‚¯ã«å¤‰æ›
 	$value =~ s!<img src="([^"]+)">!<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>!gi; 
 	local @vlines = split(/\r/, $value);
 	foreach (@vlines) {
-		$_ = "<span class='c2'>$_</span>" if (/^(&gt;|„)/);
+		$_ = "<span class='c2'>$_</span>" if (/^(&gt;|ï¼)/);
 	}
 	$value = join("\n", @vlines);
 	$value =~ s!<a href="(https?://[^"]+)">[^<]+</a>!<a href="$redirect?$1" target="_blank" rel="noopener noreferrer">$1</a>!g if ($redirect);
 	if ($img) { 
 		if(-e "$imgdir/$img"){
-			print "<span class='c3'>‰æ‘œF</span><a href='$imgdir/$img' target='_blank' rel='noopener noreferrer'>$img</a>\n";
+			print "<span class='c3'>Image ï¼š</span><a href='$imgdir/$img' target='_blank' rel='noopener noreferrer'>$img</a>\n";
 		}
 		else{
-			print "<span class='c2'>‰æ‘œF$img (íœÏ‚İ)</span>\n";
+			print "<span class='c2'>Image ï¼š$img (Deleted)</span>\n";
 		}
 	}
 	print "<br>\n";
@@ -311,12 +311,12 @@ sub mbdisp {
 } # mbdisp end
 
 ##################################
-# ƒfƒR[ƒh‚ÆƒAƒbƒvƒ[ƒh‰æ‘œ‚Ì‹L˜^
+# ãƒ‡ã‚³ãƒ¼ãƒ‰ã¨ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ç”»åƒã®è¨˜éŒ²
 ##################################
 
 sub decode {
 
-	if ($l_all < $ENV{'CONTENT_LENGTH'}) { &error("“Še“à—e‚ª‘å‚«‚·‚¬‚Ü‚·BƒAƒbƒvƒ[ƒh‚Í‰æ‘œ‚ğŠÜ‚ß‚ÄÅ‘å${l_all_kb}KB‚Ü‚Å‚Å‚·B", __LINE__); }
+	if ($l_all < $ENV{'CONTENT_LENGTH'}) { &error("Your submission is too large. Uploads are limited to a maximum of ${l_all_kb}KB, including images.", __LINE__); }
 	local($name, $value);
 	require $jcpl;
 	binmode(STDIN);
@@ -372,7 +372,7 @@ sub decode {
 		}
 	}
 
-	# “Še“à—e‚ª‰üs/‹ó”’‚Ì‚İ‚Ì“Še‚Í‘€ìƒ~ƒX‚Æ”»’f‚µ‚Ä“Še“à—e‚ğÁ‹
+	# æŠ•ç¨¿å†…å®¹ãŒæ”¹è¡Œ/ç©ºç™½ã®ã¿ã®æŠ•ç¨¿ã¯æ“ä½œãƒŸã‚¹ã¨åˆ¤æ–­ã—ã¦æŠ•ç¨¿å†…å®¹ã‚’æ¶ˆå»
 	if ($FORM{'value'} =~ /^\s+$/) { $FORM{'value'} = ''; }
 
 } # decode end
@@ -383,7 +383,7 @@ sub binary {
 	local $bound = $_[1];
 	local($type, $data, $range, $pos, @data);
 
-	while (<STDIN>) { last if ($_ =~ /^\r\n/); } # ‹ó”’s‚ğƒXƒLƒbƒv
+	while (<STDIN>) { last if ($_ =~ /^\r\n/); } # ç©ºç™½è¡Œã‚’ã‚¹ã‚­ãƒƒãƒ—
 
 	open(DB, $imglog) || &error(1, __LINE__);
 	eval 'flock (DB, 2);';
@@ -418,7 +418,7 @@ sub binary {
 		$type = 'png';
 		$range = 24;
 	}
-	else{ &error('GIF JPG PNG‰æ‘œˆÈŠO‚ÍƒAƒbƒvƒ[ƒh‚Å‚«‚Ü‚¹‚ñB', __LINE__); }
+	else{ &error('GIF JPG PNGç”»åƒä»¥å¤–ã¯ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã§ãã¾ã›ã‚“ã€‚', __LINE__); }
 
 	local $crlf = '';
 	while (<STDIN>) {
@@ -446,7 +446,7 @@ sub binary {
 		if ($data =~ /ImplantArchive/) { $pos = index($data, "\xff\xc0"); }
 		elsif ($data =~ /\xff\xc2/) { $pos = rindex($data, "\xff\xc2"); }
 		else{ $pos = rindex($data, "\xff\xc0"); }
-		if ($pos == -1) { &error('‰æ‘œƒTƒCƒY(width/height)‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½B', __LINE__); }
+		if ($pos == -1) { &error('ç”»åƒã‚µã‚¤ã‚º(width/height)ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚', __LINE__); }
 		@data = split(//, substr($data, $pos + 5, 4));
 		foreach (@data) { $_ = ord; };
 		$GLOB{'imgw'} = 256 * $data[2] + $data[3];
@@ -465,7 +465,7 @@ sub binary {
 		$GLOB{'imgh'} = 65536 * $data[4] + 4096 * $data[5] + 256 * $data[6] + $data[7];
 	}
 
-	if ($l_width < $GLOB{'imgw'} || $l_height < $GLOB{'imgh'}) { &error("ƒAƒbƒvƒ[ƒh‚Å‚«‚é‰æ‘œ‚Í’·•Ó${l_width}px‚Ü‚Å‚Å‚·B", __LINE__); }
+	if ($l_width < $GLOB{'imgw'} || $l_height < $GLOB{'imgh'}) { &error("Uploadable images are limited to ${l_width}px on the longest side.", __LINE__); }
 
 	$GLOB{'img'} = "$GLOB{'id'}.$type";
 	if (-e "$imgdir/$GLOB{'img'}") {
@@ -498,7 +498,7 @@ sub sanitaize {
 } # sanitaize end
 
 ##################################
-# “Še‹L˜^ˆ—
+# æŠ•ç¨¿è¨˜éŒ²å‡¦ç†
 ##################################
 
 sub register {
@@ -509,16 +509,16 @@ sub register {
 	$subject = ' ' if ($subject eq '');
 	$FORM{'thread'} = &digit($datenow) if (! $FORM{'thread'});
 
-	# $FORM{'hpage'}(‹ŒƒŒƒXQÆŒ³ƒŠƒ“ƒNorˆê”ÊƒŠƒ“ƒNAŒ»s‚ÍƒŒƒXQÆŒ³ƒŠƒ“ƒNê—p)‚Ìˆ—#(hpageŠÖ˜A‚ÌURL‚É‚Í./$scriptname‚ğg—p)
-	if ($FORM{'hpage'} !~ m!^\./$scriptname\?action=search1&search=\d{4}”N\d{2}Œ\d{2}“ú\(..\)\d{2}\d{2}•ª\d{2}•b$!) { $FORM{'hpage'} = ''; }
+	# $FORM{'hpage'}(æ—§ãƒ¬ã‚¹å‚ç…§å…ƒãƒªãƒ³ã‚¯orä¸€èˆ¬ãƒªãƒ³ã‚¯ã€ç¾è¡Œã¯ãƒ¬ã‚¹å‚ç…§å…ƒãƒªãƒ³ã‚¯å°‚ç”¨)ã®å‡¦ç†#(hpageé–¢é€£ã®URLã«ã¯./$scriptnameã‚’ä½¿ç”¨)
+	if ($FORM{'hpage'} !~ m!^\./$scriptname\?action=search1&search=\d{4}å¹´\d{2}æœˆ\d{2}æ—¥\(..\)\d{2}æ™‚\d{2}åˆ†\d{2}ç§’$!) { $FORM{'hpage'} = ''; }
 
-	if ($l_name < length $FORM{'name'})       { &error("–¼‘O‚ª’·‚·‚¬‚Ü‚·BÅ‘å$l_name byte‚Ü‚Å‚Å‚·B", __LINE__); }
-	if ($l_email < length $FORM{'email'})     { &error("ƒ[ƒ‹ƒAƒhƒŒƒX‚ª’·‚·‚¬‚Ü‚·BÅ‘å$l_email byte‚Ü‚Å‚Å‚·B", __LINE__); }
-	if ($l_subject < length $FORM{'subject'}) { &error("‘è–¼‚ª’·‚·‚¬‚Ü‚·BÅ‘å$l_subject byte‚Ü‚Å‚Å‚·B", __LINE__); }
-	if ($l_value < length $FORM{'value'})     { &error("“à—e‚ª’·‚·‚¬‚Ü‚·BÅ‘å$l_value byte‚Ü‚Å‚Å‚·B", __LINE__); }
-	if ($l_line < ($FORM{'value'} =~ tr/\r/\r/) + 1) { &error("“à—e‚Ìs”‚ª‘½‚·‚¬‚Ü‚·BÅ‘å$l_line s‚Ü‚Å‚Å‚·B", __LINE__); }
+	if ($l_name < length $FORM{'name'})       { &error("Name is too long. Maximum $l_name byte.", __LINE__); }
+	if ($l_email < length $FORM{'email'})     { &error("Email is too long. Maximum is $l_email bytes.", __LINE__); }
+	if ($l_subject < length $FORM{'subject'}) { &error("é¡ŒåãŒé•·ã™ãã¾ã™ã€‚æœ€å¤§$l_subject byteã¾ã§ã§ã™ã€‚", __LINE__); }
+	if ($l_value < length $FORM{'value'})     { &error("å†…å®¹ãŒé•·ã™ãã¾ã™ã€‚æœ€å¤§$l_value byteã¾ã§ã§ã™ã€‚", __LINE__); }
+	if ($l_line < ($FORM{'value'} =~ tr/\r/\r/) + 1) { &error("å†…å®¹ã®è¡Œæ•°ãŒå¤šã™ãã¾ã™ã€‚æœ€å¤§$l_line è¡Œã¾ã§ã§ã™ã€‚", __LINE__); }
 
-	# ƒXƒpƒ€‘Îô
+	# ã‚¹ãƒ‘ãƒ å¯¾ç­–
 	if ($spammode == 2 || ($spammode == 1 && ! $GLOB{'img'})) {
 		local $urlcount = 0;
 		local $value = $FORM{'value'};
@@ -526,13 +526,13 @@ sub register {
 		while ($value =~ m!https?://!gi) {
 			$urlcount++;
 			if (2 < $urlcount && $ENV{'HTTP_ACCEPT_LANGUAGE'} !~ /^ja/) {
-				&error('“ú–{Œê”ñ‘Î‰‚Ìƒuƒ‰ƒEƒU‚©‚Â“Še“à—e‚ÉURL‚ª3ŒÂˆÈã‚ ‚é‚½‚ßƒXƒpƒ€‚Æ‚İ‚È‚³‚ê‚Ü‚µ‚½B', __LINE__);
+				&error('The post was deleted as spam because it included more than 3 URLs.', __LINE__);
 			}
 			elsif (2 < $urlcount && $valuecode !~ /sjis|jis|euc|utf8/) {
-				&error('“Še“à—e‚ÉURL‚ª3ŒÂˆÈã‚ ‚èA“ú–{Œê‚àŠÜ‚Ü‚ê‚Ä‚¢‚È‚¢‚½‚ßƒXƒpƒ€‚Æ‚İ‚È‚³‚ê‚Ü‚µ‚½B', __LINE__);
+				&error('The post was deleted as spam because it included more than 3 URLs.', __LINE__);
 			}
 			elsif (5 <$urlcount) {
-				&error('“Še“à—e‚ÉURL‚ª‘½‚·‚¬‚é‚½‚ßƒXƒpƒ€‚Æ‚İ‚È‚³‚ê‚Ü‚µ‚½Bˆê“x‚É‘‚«‚ß‚éURL‚Í5ŒÂ‚Ü‚Å‚Å‚·B', __LINE__);
+				&error('The post was considered spam because there are too many URLs in the post. You may only write 5 URLs at a time.', __LINE__);
 			}
 		}
 	}
@@ -571,29 +571,29 @@ sub register {
 		if ($formnameord =~ /$namezord/) {
 			$formname = "<small>$formname</small>";
 		}
-		$formname =~ s/‚µ‚Ï/‚µ‚ÍK/g;
+		$formname =~ s/ã—ã±/ã—ã¯ã‚œ/g;
 	}
 
 	local $search = &encode($formname);
 
-	$FORM{'value'} =~ s!(https?://)!\x00$1!g if ($FORM{'autolink'}); # URL‚ğˆê“I‚É•ª—£
+	$FORM{'value'} =~ s!(https?://)!\x00$1!g if ($FORM{'autolink'}); # URLã‚’ä¸€æ™‚çš„ã«åˆ†é›¢
 
 	local @lines = split(/\r/, $FORM{'value'});
 	local $i = 0;
 	foreach (@lines) {
-		next if (/^&gt;|„/ || /^\s$/);
+		next if (/^&gt;|ï¼/ || /^\s$/);
 		$i++;
 		last;
 	}
-	if (! $i && $FORM{'hpage'} && ! $GLOB{'img'}) { &error('ƒtƒHƒ[“Še‚Åˆø—ps(+‰üs/‹ó”’)‚Ì‚İ‚Ì“Še‚Í‚Å‚«‚Ü‚¹‚ñB‰½‚©ƒRƒƒ“ƒg‚ğ‘‚­‚©‰æ‘œ‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢B', __LINE__); }
+	if (! $i && $FORM{'hpage'} && ! $GLOB{'img'}) { &error('You cannot post only quoted lines (+ new line/space) in a follow-up post. Please write some comment or select an image.', __LINE__); }
 
 	if ($FORM{'autolink'}) {
 		foreach (@lines) {
-			next if (/^&gt;|„/);
+			next if (/^&gt;|ï¼/);
 			$_ =~ s!(https?://)([\w/=~@#%&';:,\.\-\+\?\(\)\[\]\{\}\^\|\*\$\!\\]+)!<a href="$1$2" target="_blank" rel="noopener noreferrer">$1$2</a>!g;
 		}
 		$FORM{'value'} = join("\r", @lines);
-		$FORM{'value'} =~ s/\x00//g; # URL•ª—£‚Ég—p‚µ‚½ƒZƒpƒŒ[ƒ^‚ğÁ‚·
+		$FORM{'value'} =~ s/\x00//g; # URLåˆ†é›¢ã«ä½¿ç”¨ã—ãŸã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã‚’æ¶ˆã™
 	}
 
 	@lines = ();
@@ -606,13 +606,13 @@ sub register {
 
 	if (($codemode == 1 && ! $FORM{'mobile'}) || $codemode == 2) {
 		$FORM{'code'} = $FORM{'codeA'} . $FORM{'codeB'};
-		if ($FORM{'codeB'} !~ /^\d{4}$/) { &error('“ŠeƒR[ƒh‚ª–¢“ü—Í‚©”¼Šp”šˆÈŠO‚Ì‚à‚Ì‚É‚È‚Á‚Ä‚¢‚Ü‚·B', __LINE__); }
+		if ($FORM{'codeB'} !~ /^\d{4}$/) { &error('The submission code is either not entered or is not a single-byte number. ', __LINE__); }
 	}
 
 	foreach (@lines) {
 		local $code0 = (split(/\,/, $_))[10];
 		chomp $code0;
-		if ($code0 == $FORM{'code'}) { &error('“ŠeƒR[ƒh‚ªg—pÏ‚İ‚Å‚·BŒf¦”Â‚ğƒŠƒ[ƒh‚µ‚Ä‰º‚³‚¢B', __LINE__); }
+		if ($code0 == $FORM{'code'}) { &error('Posting code has been used. Please reload the message board.', __LINE__); }
 	}
 
 	&chkcode($FORM{'code'});
@@ -628,15 +628,15 @@ sub register {
 	foreach (@lines[0..($check - 1)]) {
 		local($d, $d, $d, $value, $d, $d, $img) = split(/,/, $_);
 		if ($GLOB{'img'} && $img && (-s "$imgdir/$img") == (-s "$imgdir/$GLOB{'img'}") && $FORM{'value'} eq $value) {
-			&error('“Še“à—e‚ªd•¡‚µ‚Ä‚¢‚Ü‚·B‰æ‘œ‚à‚µ‚­‚Í“à—e(ƒRƒƒ“ƒg)‚ğ•ÏX‚µ‚Ä‚­‚¾‚³‚¢B', __LINE__);
+			&error('Duplicate submission. Please change the image or content (comment).', __LINE__);
 		}
 		elsif (! $GLOB{'img'} && ! $img && $FORM{'value'} eq $value) {
-			&error('“Še“à—e(ƒRƒƒ“ƒg)‚ªd•¡‚µ‚Ä‚¢‚Ü‚·B', __LINE__);
+			&error('Duplicate submissions (comments).', __LINE__);
 		}
 	}
 
 	local @values = ($datenow, $formname, $FORM{'email'}, $FORM{'value'}, $subject, $FORM{'hpage'}, $GLOB{'img'}, $GLOB{'imgw'}, $GLOB{'imgh'}, $search, $FORM{'code'}, $FORM{'thread'},'');
-	foreach (@values) { $_ =~ s/,/\x00/g; } # ƒf[ƒ^’†‚Ì‘S‚Ä‚Ì , ‚ğ\x00‚É•ÏŠ·
+	foreach (@values) { $_ =~ s/,/\x00/g; } # ãƒ‡ãƒ¼ã‚¿ä¸­ã®å…¨ã¦ã® , ã‚’\x00ã«å¤‰æ›
 	local $newmsg = join(',', @values) . "\n";
 	unshift(@new, $newmsg);
 
@@ -647,7 +647,7 @@ sub register {
 	eval 'flock (DB, 8);';
 	close(DB);
 
-	# ‰æ‘œ—e—Ê/ƒtƒ@ƒCƒ‹”ŠÇ—
+	# ç”»åƒå®¹é‡/ãƒ•ã‚¡ã‚¤ãƒ«æ•°ç®¡ç†
 	if ($GLOB{'img'} && $imgctrl eq 'size') {
 		local @tmp = &dirinfo($imgdir);
 		local $sum = shift(@tmp);
@@ -680,42 +680,42 @@ sub register {
 
 sub pushlog {
 
-	# •ÏŠ·‚µ‚½”¼ŠpƒJƒ“ƒ}‚ğ•œŒ³
+	# å¤‰æ›ã—ãŸåŠè§’ã‚«ãƒ³ãƒã‚’å¾©å…ƒ
 	foreach (@_) { $_ =~ s/\x00/,/g; }
 
 	local($date, $name, $email, $value, $subject, $hpage, $img) = @_;
 
-	# •ÏŠ·‚³‚ê‚½‰üs‹L†‚ğ“ˆê
+	# å¤‰æ›ã•ã‚ŒãŸæ”¹è¡Œè¨˜å·ã‚’çµ±ä¸€
 	$value =~ s/\r\n|\r/\n/g if ($value);
 
 	if (!(-s $logfiledate)) {
 		open(LOG,">$logfiledate") || &error(2, __LINE__);
 		print LOG "<html><head><title>$title</title></head>\n";
 		print LOG qq!<body bgcolor="#$bgcdef" text="#$textc" link="#$linkc" vlink="#$vlinkc" alink="#$alinkc">\n!;
-		print LOG "<big><b>$title $year”N$monŒ‰ß‹ƒƒO</b></big>\n";
+		print LOG "<big><b>$title $year$year$month$month$log</b></big>\n";
 		close (LOG);
 	}
 
 	open (LOG, ">>$logfiledate") || &error(2, __LINE__);
 	print LOG qq!<hr><font size="+1" color="#$subjc"><b>$subject</b></font>!;
 	
-	if ($email) { print LOG qq!@“ŠeÒF<b><a href="mailto:$email">$name</a></b>\n!; }
-	else { print LOG qq!@“ŠeÒF<font color="#$subjc"><b>$name</b></font>\n!; }
+	if ($email) { print LOG qq!ã€€Posterï¼š<b><a href="mailto:$email">$name</a></b>\n!; }
+	else { print LOG qq!ã€€Posterï¼š<font color="#$subjc"><b>$name</b></font>\n!; }
 
-	print LOG qq!<font size="-1">@“Še“úF$datenow</font><p>\n<blockquote><pre>\n!;
+	print LOG qq!<font size="-1">ã€€Submission Dateï¼š$datenow</font><p>\n<blockquote><pre>\n!;
 
-	# logƒfƒBƒŒƒNƒgƒŠ‚©‚ç‚Ì‘Š‘Îw’è‚ÅƒAƒbƒvƒ[ƒh‰æ‘œ‚Í../$imgdir/$img
+	# logãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‹ã‚‰ã®ç›¸å¯¾æŒ‡å®šã§ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ç”»åƒã¯../$imgdir/$img
 
-	print LOG qq!<font color="#ff69b4">ƒAƒbƒvƒ[ƒh‰æ‘œF</font><a href="../$imgdir/$img" target="img">$img</a>\n! if ($img);
+	print LOG qq!<font color="#ff69b4">ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ç”»åƒUpload Imageï¼š</font><a href="../$imgdir/$img" target="img">$img</a>\n! if ($img);
 
 	print LOG "\n" if($value && $img);
 
 	print LOG "$value" if($value);
 
 	print LOG "</pre><p>\n";
-	# hpageŠÖ˜A‚ÌURL‚É‚Í./$scriptname‚ğg—p
+	# hpageé–¢é€£ã®URLã«ã¯./$scriptnameã‚’ä½¿ç”¨
 	if ($hpage =~ m!^\./$scriptname\?action=search1\&search=(.*)$!) {
-		print LOG "<u>QlF$1</u><p>\n";
+		print LOG "<u>referenceï¼š$1</u><p>\n";
 	}
 
 	print LOG "</blockquote>\n";
@@ -725,7 +725,7 @@ sub pushlog {
 } # pushlog end
 
 ##################################
-# ƒtƒHƒ[“ŠeƒT[ƒ`
+# ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿ã‚µãƒ¼ãƒ
 ##################################
 
 sub search1 {
@@ -738,8 +738,8 @@ $css
 $body
 <form class="article" method="POST" action="$scriptrel">
 $baseinput
-<font size=+1><b>ƒtƒHƒ[‹L–“Še</b></font> &nbsp;
-<input type="submit" value="–ß‚é">
+<font size=+1><b>ãƒ•ã‚©ãƒ­ãƒ¼è¨˜äº‹æŠ•ç¨¿</b></font> &nbsp;
+<input type="submit" value="æˆ»ã‚‹">
 
 EOF
 
@@ -751,10 +751,10 @@ EOF
 
 	foreach (@lines) {
 		@data = split(/,/, $_);
-		chomp($data[11]); # ‹Œƒf[ƒ^¬İ—p‚É‚±‚±‚Åchomp
+		chomp($data[11]); # æ—§ãƒ‡ãƒ¼ã‚¿æ··åœ¨æ™‚ç”¨ã«ã“ã“ã§chomp
 		local $date = &digit($data[0]);
 		if ($date eq $FORM{'search'}) { 
-			push(@data, 'search1'); # &disp‚É“n‚·ƒtƒ‰ƒO’Ç‰Á
+			push(@data, 'search1'); # &dispã«æ¸¡ã™ãƒ•ãƒ©ã‚°è¿½åŠ 
 			$found++; 
 			last; 
 		}
@@ -768,22 +768,22 @@ EOF
 		if ($value) {
 			$value =~ s/<img src="(.*?)">/$1/g;
 			$value =~ s/<a href=[^>]+>([^<]+)<\/a>/$1/g;
-			@vlines = split(/\r/,$value); # ƒŒƒX“à—e‚Éˆø—p•„‚ğ•t‚¯‚éiˆø—p‚ÍÅ‘å3’i‚Ü‚Åj
+			@vlines = split(/\r/,$value); # ãƒ¬ã‚¹å†…å®¹ã«å¼•ç”¨ç¬¦ã‚’ä»˜ã‘ã‚‹ï¼ˆå¼•ç”¨ã¯æœ€å¤§3æ®µã¾ã§ï¼‰
 			$value = '';
 			foreach (@vlines) {
 				if ($_ !~ /^&gt; &gt; &gt; .*/) { $value .= "&gt; $_\n"; }
 			}
 			$value .= "\n";
 		}
-		# hpageŠÖ˜A‚ÌURL‚É‚Í./$scriptname‚ğg—p
-		print "<font color='#ff69b4'></font>¦ˆø—p•¶’†‚ÌURL‚Ícheckbox‚Ìó‘Ô‚ğ–â‚í‚¸ƒŠƒ“ƒN‚É©“®•ÏŠ·‚³‚ê‚Ü‚¹‚ñBƒAƒbƒvƒ[ƒh‰æ‘œ‚Íˆø—p‚³‚ê‚Ü‚¹‚ñB<br><br>\n\n";
-		local @parm = ($FORM{'name'}, $FORM{'email'}, $value, "„$data[1]", "./$scriptname?action=search1&search=$data[0]", '      “Še      ', $data[11], 'search1');
+		# hpageé–¢é€£ã®URLã«ã¯./$scriptnameã‚’ä½¿ç”¨
+		print "<font color='#ff69b4'></font>â€»URLs in quoted text will not be automatically converted to links regardless of the checkbox status. Uploaded images will not be quoted.<br><br>\n\n";
+		local @parm = ($FORM{'name'}, $FORM{'email'}, $value, "ï¼$data[1]", "./$scriptname?action=search1&search=$data[0]", '      æŠ•ç¨¿      ', $data[11], 'search1');
 		if (! $FORM{'mobile'}) { &form(@parm); }
 		else{ &mbform(@parm); }
 		print "</form><p>\n";
 	}
 	else {
-		print "@‚İ‚Â‚©‚è‚Ü‚¹‚ñBŒ³‹L–‚ªíœ‚³‚ê‚½‰Â”\\«‚ª‚ ‚è‚Ü‚·B<br>";
+		print "The site cannot find it. The original post may have been deleted.<br>";
 	}
 
 	&footer;
@@ -792,7 +792,7 @@ EOF
 
 
 ##################################
-# “ŠeÒ–¼ƒT[ƒ`
+# æŠ•ç¨¿è€…åã‚µãƒ¼ãƒ
 ##################################
 
 sub search2 {
@@ -802,7 +802,7 @@ sub search2 {
 	$searchname =~ s/%25/%/g;
 	$searchname =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("H2", $1)/eg;
 	local $name = $searchname;
-	$searchname =~ s/,/\x00/g; # ‹L˜^ƒtƒ@ƒCƒ‹ƒf[ƒ^‚ÆƒtƒH[ƒ}ƒbƒg‚ğ‡‚í‚¹‚é
+	$searchname =~ s/,/\x00/g; # è¨˜éŒ²ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã¨ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’åˆã‚ã›ã‚‹
 
 	&header;
 	print <<"EOF";
@@ -812,54 +812,54 @@ $css
 $body
 <form class="article" method="POST" action="$scriptrel">
 $baseinput
-<font size="+1"><b>“ŠeÒ–¼ƒT[ƒ`u$namev</b></font><small>(Å‘å$l_search2Œ•\\¦)</small> &nbsp;
-<input type="submit" value="–ß‚é">
+<font size="+1"><b>Contributor Name Searchã€Œ$nameã€</b></font><small>(Maximum $l_search2 table\)</small> &nbsp;
+<input type="submit" value="æˆ»ã‚‹">
 EOF
 
 	open(DB, $bbsfile) || &error(2, __LINE__);
 	chomp(@lines = <DB>);
 	close(DB);
 	
-	if( $ngsearch == 1 && ( $name eq ' ' || $name eq '@' ) ) { 
-		print "<br><br>ƒGƒ‰[ : ”¼Špor‘SŠpƒXƒy[ƒX1ŒÂ‚Ì“ŠeÒ–¼‚ğƒT[ƒ`‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB\n";
+	if( $ngsearch == 1 && ( $name eq ' ' || $name eq 'ã€€' ) ) { 
+		print "<br><br>Error : Cannot search for a contributor name with one half-width or one full-width space. \n";
 		&footer;
 	}
 	elsif ($ngsearch == 2 && length ( $name ) == 1) {
-		print "<br><br>ƒGƒ‰[ : ”¼Šp1•¶š(1byte)‚Ì“ŠeÒ–¼‚ğƒT[ƒ`‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB\n";
+		print "<br><br>Error : Searching for contributor name with one-byte characters is not allowed.\n";
 		&footer;
 	}
 
 	$found = 0;
 	foreach (@lines) {
 		@data = split(/,/, $_);
-		chomp($data[11]); # ‹Œƒf[ƒ^¬İ—p
+		chomp($data[11]); # æ—§ãƒ‡ãƒ¼ã‚¿æ··åœ¨æ™‚ç”¨
 		if ($data[1] eq $searchname) {
 			$found++;
-			push(@data, 'search2'); # &disp‚É“n‚·ƒtƒ‰ƒO’Ç‰Á
+			push(@data, 'search2'); # &dispã«æ¸¡ã™ãƒ•ãƒ©ã‚°è¿½åŠ 
 			&disp(@data);
 		
 		}
 		if ( $l_search2 <= $found ) {
-			print "<hr>‹L–‚ª$l_search2Œ‚ğ’´‚¦‚Ü‚µ‚½B‚±‚êˆÈ~‚Ì‹L–‚ÍÈ—ª‚³‚ê‚Ä‚¢‚Ü‚·B\n"; 
+			print "<hr>Articles have exceeded $l_search2 articles. Articles after this have been omitted.\n"; 
 			last;
 		}
 	}
 	print "</form>\n";
 	
 	if ($rankkey) {
-		print "<hr>¡Œ‚Ì“Še”F";
+		print "<hr>Number of submissions this monthï¼š";
 		print &how_much($searchname);
 	}
-	print "‚İ‚Â‚©‚è‚Ü‚¹‚ñ<br>" if ($found == 0);
+	print "I can't find it.<br>" if ($found == 0);
 
-	print "<br><a href='$scriptrel#top'>¢TOP</a>\n";
+	print "<br><a href='$scriptrel#top'>â–³TOP</a>\n";
 
 	&footer;
 
 } # search2 end
 
 ##################################
-# ƒXƒŒƒbƒh•\¦
+# ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤º
 ##################################
 
 sub thread {
@@ -874,8 +874,8 @@ $css
 $body
 <form class="article" method="POST" action="$scriptrel">
 $baseinput
-<font size="+1"><b>ƒXƒŒƒbƒh $threadname*</b></font> &nbsp;
-<input type="submit" value="–ß‚é">
+<font size="+1"><b>ã‚¹ãƒ¬ãƒƒãƒ‰ $threadname*</b></font> &nbsp;
+<input type="submit" value="Submit">
 EOF
 
 	open(DB, $bbsfile) || &error(2, __LINE__);
@@ -885,29 +885,29 @@ EOF
 		@data = split(/,/, $_);
 		if ($data[11] eq $FORM{'thread'}) {
 			$found++;
-			push(@data, 'thread'); # &disp‚É“n‚·ƒtƒ‰ƒO’Ç‰Á
+			push(@data, 'thread'); # &dispã«æ¸¡ã™ãƒ•ãƒ©ã‚°è¿½åŠ 
 			if (! $FORM{'mobile'}) { &disp(@data); }
 			else{ &mbdisp(@data); }
 			last if (&digit($data[0]) eq $FORM{'thread'});
 		
 		}
 		if ( $l_thread <= $found ) {
-			print "<hr>‹L–‚ª$l_threadŒ‚ğ’´‚¦‚Ü‚µ‚½B‚±‚êˆÈ~‚Ì‹L–‚ÍÈ—ª‚³‚ê‚Ä‚¢‚Ü‚·B\n"; 
+			print "<hr>è¨˜äº‹ãŒ$l_threadä»¶ã‚’è¶…ãˆã¾ã—ãŸã€‚ã“ã‚Œä»¥é™ã®è¨˜äº‹ã¯çœç•¥ã•ã‚Œã¦ã„ã¾ã™ã€‚\n"; 
 			last;
 		}
 	}
 	close(DB);
 
 	print "</form>\n";
-	print "‚İ‚Â‚©‚è‚Ü‚¹‚ñ<br>" if ($found == 0);
-	print "<br><a href='$scriptrel#top'>¢TOP</a>\n";
+	print "ã¿ã¤ã‹ã‚Šã¾ã›ã‚“<br>" if ($found == 0);
+	print "<br><a href='$scriptrel#top'>â–³TOP</a>\n";
 	
 	&footer;
 
 } # thread end
 
 ##################################
-# “Šeƒ‰ƒ“ƒLƒ“ƒO(by ‚¤‚ç‚×)
+# æŠ•ç¨¿ãƒ©ãƒ³ã‚­ãƒ³ã‚°(by ã†ã‚‰ã¹æ°)
 ##################################
 
 sub viewrank {
@@ -919,19 +919,19 @@ sub viewrank {
 $body
 <center>
 <table width=80% border=0><tr><td align="center">
-	<font size=+1><b>$title “Šeƒ‰ƒ“ƒLƒ“ƒOTOP10</b></font>
+	<font size=+1><b>$title æŠ•ç¨¿ãƒ©ãƒ³ã‚­ãƒ³ã‚°TOP10</b></font>
 </tr></td></table>
 <p>
 EOF
 	opendir(DIR, $rankdir) || &error(2, __LINE__);
 
-	foreach(grep(/^\d+/,readdir(DIR))){ # DBƒtƒ@ƒCƒ‹–¼(Šg’£q‚ğœ‚¢‚½æ“ª•”•ª)æ“¾
+	foreach(grep(/^\d+/,readdir(DIR))){ # DBãƒ•ã‚¡ã‚¤ãƒ«å(æ‹¡å¼µå­ã‚’é™¤ã„ãŸå…ˆé ­éƒ¨åˆ†)å–å¾—
 		$_ =~ s/\D//g;
 		push(@rankfiles, $_);
 	}
 
 	%count=();
-	@rankfiles = reverse sort grep(! $count{$_}++, @rankfiles); # d•¡”rœ
+	@rankfiles = reverse sort grep(! $count{$_}++, @rankfiles); # é‡è¤‡æ’é™¤
 
 	$page = ($FORM{'rankpage'} || 0);
 	(($pageend = $page+$rankdef-1) > $#rankfiles) && ($pageend = $#rankfiles);
@@ -944,15 +944,15 @@ EOF
 		foreach(values(%DB)){ $total += $_; }
 		print <<"EOF";
 <table width=80% border=0><tr><td align="left">
-<font size=+1>$rankyear”N$rankmonŒ</font>@“Še”F$total
+<font size=+1>$rankyearå¹´$rankmonæœˆ</font>ã€€æŠ•ç¨¿æ•°ï¼š$total
 </td></tr></table>
 <table width=80% border=1>
-<tr><th>‡ˆÊ</th><th>–¼‘O</th><th>”</th><th>Š„‡</th></tr>
+<tr><th>é †ä½</th><th>åå‰</th><th>æ•°</th><th>å‰²åˆ</th></tr>
 EOF
 		$kazu = $i = 1;
 		foreach(sort {$DB{$b} <=> $DB{$a}} keys(%DB)){
-			if ($kazu != $DB{$_}){ last if ($i>10); $rank="$iˆÊ";}
-			else { $rank="@"; }
+			if ($kazu != $DB{$_}){ last if ($i>10); $rank="$iä½";}
+			else { $rank="ã€€"; }
 			$kazu = $DB{$_};
 			$percent = sprintf("%4.1f",($DB{$_} / $total*100));
 			print <<"EOF";
@@ -972,12 +972,12 @@ EOF
 	(($rankfront = $page-$rankdef) < 0) && ($rankfront = 0);
 	(($ranknext = $page+$rankdef) > ($rankend = $#rankfiles-$rankdef+1)) && ($ranknext = $rankend);
 	if ($pageend < $#rankfiles){
-		print "<a href=\"$scriptrel?bgcolor=$bgc&action=ranking&rankpage=$rankend\">ƒƒ</a>\n";
-		print "<a href=\"$scriptrel?bgcolor=$bgc&action=ranking&rankpage=$ranknext\">ƒŒÃ‚¢‚Ù‚¤‚Ö</a>\n";
+		print "<a href=\"$scriptrel?bgcolor=$bgc&action=ranking&rankpage=$rankend\">ï¼œï¼œ</a>\n";
+		print "<a href=\"$scriptrel?bgcolor=$bgc&action=ranking&rankpage=$ranknext\">ï¼œå¤ã„ã»ã†ã¸</a>\n";
 	}
 	if ($page > 0){
-		print "<a href=\"$scriptrel?bgcolor=$bgc&action=ranking&rankpage=$rankfront\">V‚µ‚¢‚Ù‚¤‚Ö„</a>\n";
-		print "<a href=\"$scriptrel?bgcolor=$bgc&action=ranking&rankpage=0\">„„</a>\n";
+		print "<a href=\"$scriptrel?bgcolor=$bgc&action=ranking&rankpage=$rankfront\">æ–°ã—ã„ã»ã†ã¸ï¼</a>\n";
+		print "<a href=\"$scriptrel?bgcolor=$bgc&action=ranking&rankpage=0\">ï¼ï¼</a>\n";
 	}
 	print <<"EOF";
 </center>
@@ -1010,7 +1010,7 @@ sub how_much {
 
 
 ##################################
-# ‰ß‹ƒƒO‘I‘ğƒy[ƒW
+# éå»ãƒ­ã‚°é¸æŠãƒšãƒ¼ã‚¸
 ##################################
 
 sub selectlog {
@@ -1023,11 +1023,11 @@ sub selectlog {
 
 	&header;
 	print <<"EOF";
-<title>$title‰ß‹ƒƒO</title>
+<title>$titleéå»ãƒ­ã‚°</title>
 </head>
 $body
 <p>
-<font size=4><b>$title‰ß‹ƒƒO</b></font>
+<font size=4><b>$titleéå»ãƒ­ã‚°</b></font>
 <form method="POST" action="$scriptrel">
 <input type="hidden" name="action" value="getlog">
 <hr><pre>
@@ -1042,20 +1042,20 @@ EOF
 		$size = (stat("$logdir/$log"))[7];
 		$logyear = substr($log, 0, 4);
 		$logmon = substr($log, 4, 2);
-		$logname = "$logyear”N$logmonŒ";
+		$logname = "$logyearå¹´$logmonæœˆ";
 		if ($i == $#logs) { $chk = ' checked'; }
-		printf("<input type='checkbox' name='data' value='$log'$chk> <a href='$logdir/$log'>$logname</a>    %6s byte   $countŒ\n", $size);
+		printf("<input type='checkbox' name='data' value='$log'$chk> <a href='$logdir/$log'>$logname</a>    %6s byte   $countä»¶\n", $size);
 		$i++;
 	}
 
-	print "</pre>“ú•tF<select name='start'>\n";
+	print "</pre>æ—¥ä»˜ï¼š<select name='start'>\n";
 	for ($i = 1; $i <= 31; $i++) {
 		$sel = ' selected' if ($i == 1);
 		print "<option value='$i'$sel>";
 		printf("%02d\n", $i);
 		$sel = '';
 	}
-	print "</select>“ú‚©‚ç\n";
+	print "</select>æ—¥ã‹ã‚‰\n";
 	print "<select name='end'>\n";
 	for ($i = 1; $i <= 31; $i++){
 		$sel = ' selected' if ($i == 31);
@@ -1064,22 +1064,22 @@ EOF
 	}
 
 	print <<"_HTML_";
-</select>“ú‚Ü‚Å
+</select>æ—¥ã¾ã§
 <p>
 <select name="search">
-<option value="all" selected>‘S•¶
-<option value="name">“ŠeÒ
-<option value="subject">‘è–¼
+<option value="all" selected>å…¨æ–‡
+<option value="name">æŠ•ç¨¿è€…
+<option value="subject">é¡Œå
 </select>
 <select name="command">
-<option value="NORMAL" selected>’ÊíŒŸõ
-<option value="AND">ANDŒŸõ
-<option value="OR">ORŒŸõ
+<option value="NORMAL" selected>é€šå¸¸æ¤œç´¢
+<option value="AND">ANDæ¤œç´¢
+<option value="OR">ORæ¤œç´¢
 </select>
 <input type="text" name="keyword" size="30" maxlength="$l_keyword"><p>
-<input type="submit" value="“Ç‚İ‚İ/ŒŸõ">@
-<input type="checkbox" name="opt_i" value="1" checked>‘å•¶š¬•¶š‚ğ‹æ•Ê‚µ‚È‚¢<p>
-¦ŒŸõ•¶š—ñ–³‚µ‚Å [“Ç‚İ‚İ/ŒŸõ] ƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚Æ‘I‘ğ‚µ‚½ƒƒO‚ğ‚·‚×‚Ä•\\¦‚µ‚Ü‚·(Å‘å$l_logsearchŒ)
+<input type="submit" value="èª­ã¿è¾¼ã¿/æ¤œç´¢">ã€€
+<input type="checkbox" name="opt_i" value="1" checked>å¤§æ–‡å­—å°æ–‡å­—ã‚’åŒºåˆ¥ã—ãªã„<p>
+â€»æ¤œç´¢æ–‡å­—åˆ—ç„¡ã—ã§ [èª­ã¿è¾¼ã¿/æ¤œç´¢] ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨é¸æŠã—ãŸãƒ­ã‚°ã‚’ã™ã¹ã¦è¡¨\ç¤ºã—ã¾ã™(æœ€å¤§$l_logsearchä»¶)
 </form>
 _HTML_
 
@@ -1089,7 +1089,7 @@ _HTML_
 
 
 ##################################
-# ‰ß‹ƒƒO•\¦
+# éå»ãƒ­ã‚°è¡¨ç¤º
 ##################################
 
 sub getlog {
@@ -1100,7 +1100,7 @@ sub getlog {
 
 	&header;
 	print <<"EOF";
-<title>$title‰ß‹ƒƒO</title>
+<title>$titleéå»ãƒ­ã‚°</title>
 $css
 </head>
 $body
@@ -1109,19 +1109,19 @@ EOF
 
 	foreach (@logs) { print "$_ "; }
 
-	print "</b></font> (Å‘å$l_logsearchŒ) &nbsp; <a href='$scriptrel?action=selectlog'>ƒƒO‘I‘ğ‰æ–Ê‚É–ß‚é</a><hr>\n";
+	print "</b></font> (æœ€å¤§$l_logsearchä»¶) &nbsp; <a href='$scriptrel?action=selectlog'>ãƒ­ã‚°é¸æŠç”»é¢ã«æˆ»ã‚‹</a><hr>\n";
 
 	$warn = '';
 
 	if ($l_keyword < length$FORM{'keyword'}) { 
-		$warn .= "<br><br>ŒŸõƒL[ƒ[ƒh‚Í”¼Šp$l_keyword•¶šˆÈ“à‚É‚µ‚Ä‚­‚¾‚³‚¢B\n";
+		$warn .= "<br><br>æ¤œç´¢ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã¯åŠè§’$l_keywordæ–‡å­—ä»¥å†…ã«ã—ã¦ãã ã•ã„ã€‚\n";
 	}
 
-	if($ngsearch == 1 && ($FORM{'keyword'} eq ' ' || $FORM{'keyword'} eq '@')) { 
-		$warn .= "<br><br>ƒGƒ‰[ : ƒL[ƒ[ƒh\"”¼Špor‘SŠpƒXƒy[ƒX1ŒÂ\"‚Å‰ß‹ƒƒOƒT[ƒ`‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB\n";
+	if($ngsearch == 1 && ($FORM{'keyword'} eq ' ' || $FORM{'keyword'} eq 'ã€€')) { 
+		$warn .= "<br><br>ã‚¨ãƒ©ãƒ¼ : ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰\"åŠè§’orå…¨è§’ã‚¹ãƒšãƒ¼ã‚¹1å€‹\"ã§éå»ãƒ­ã‚°ã‚µãƒ¼ãƒã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚\n";
 	}
 	elsif($ngsearch == 2 && length( $FORM{'keyword'} ) == 1) {
-		$warn .=  "<br><br>ƒGƒ‰[ : ƒL[ƒ[ƒh\"”¼Šp1•¶š(1byte)\"‚Å‰ß‹ƒƒOƒT[ƒ`‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB2•¶šˆÈã‚ÌƒL[ƒ[ƒh‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B\n";
+		$warn .=  "<br><br>ã‚¨ãƒ©ãƒ¼ : ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰\"åŠè§’1æ–‡å­—(1byte)\"ã§éå»ãƒ­ã‚°ã‚µãƒ¼ãƒã™ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚2æ–‡å­—ä»¥ä¸Šã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ã€‚\n";
 	}
 
 	if ($warn) {
@@ -1130,9 +1130,9 @@ EOF
 	}
 
 	if ($FORM{'keyword'}) {
-		if ($FORM{'search'} eq 'all') { $search = "‘S•¶ $FORM{'command'}ŒŸõ"; }
-		elsif ($FORM{'search'} eq 'name') { $search = "“ŠeÒ $FORM{'command'}ŒŸõ"; }
-		elsif ($FORM{'search'} eq 'subject') { $search = "‘è–¼ $FORM{'command'}ŒŸõ"; }
+		if ($FORM{'search'} eq 'all') { $search = "å…¨æ–‡ $FORM{'command'}æ¤œç´¢"; }
+		elsif ($FORM{'search'} eq 'name') { $search = "æŠ•ç¨¿è€… $FORM{'command'}æ¤œç´¢"; }
+		elsif ($FORM{'search'} eq 'subject') { $search = "é¡Œå $FORM{'command'}æ¤œç´¢"; }
 
 		$command = $FORM{'command'};
 		if ($command eq 'NORMAL') {
@@ -1151,17 +1151,17 @@ EOF
 		}
 	}
 
-	$/ = '<hr>'; #“ü—ÍƒŒƒR[ƒhƒZƒpƒŒ[ƒ^‚ğ\n‚©‚ç<hr>‚É•ÏX
+	$/ = '<hr>'; #å…¥åŠ›ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã‚’\nã‹ã‚‰<hr>ã«å¤‰æ›´
 
 	$hitlimit = 0;
 	$printed = 0;
-	foreach $logdata (@logs){ # ‰ß‹ƒƒOo—Í
+	foreach $logdata (@logs){ # éå»ãƒ­ã‚°å‡ºåŠ›
 
-		open(LOG,"$logdir/$logdata") || print '¡Œ‚Ì‰ß‹ƒƒO‚Í‚Ü‚¾ì¬‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB<br><br>';
+		open(LOG,"$logdir/$logdata") || print 'ä»Šæœˆã®éå»ãƒ­ã‚°ã¯ã¾ã ä½œæˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚<br><br>';
 
 		LOOP: while ($line = <LOG>) {
 			chomp $line;
-			$line =~ />@“Še“úF[^<]*(\d{2}).?.?\(..\)/;
+			$line =~ />ã€€æŠ•ç¨¿æ—¥ï¼š[^<]*(\d{2}).?.?\(..\)/;
 			next if ($1 < $FORM{'start'} || $FORM{'end'} < $1);
 
 			if ($FORM {'keyword'}) {
@@ -1173,9 +1173,9 @@ EOF
 				}
 				elsif ($FORM{'search'} eq 'name') {
 					if ($command eq 'AND') {
-						foreach $keyword (@keyword) { next LOOP if ($line !~ /“ŠeÒF<[^>]+><b>[^<]*$keyword[^<]*</); }
+						foreach $keyword (@keyword) { next LOOP if ($line !~ /æŠ•ç¨¿è€…ï¼š<[^>]+><b>[^<]*$keyword[^<]*</); }
 					}
-					else { next LOOP if($line !~ /“ŠeÒF<[^>]+><b>[^<]*$keyword[^<]*</); }
+					else { next LOOP if($line !~ /æŠ•ç¨¿è€…ï¼š<[^>]+><b>[^<]*$keyword[^<]*</); }
 				}
 				elsif ($FORM{'search'} eq 'subject') {
 					if ($command eq 'AND') {
@@ -1185,14 +1185,14 @@ EOF
 				}
 			}
 
-			# ƒAƒbƒvƒ[ƒh‰æ‘œ‚Ìˆ—i‚¶‚å‚µ‚ ‚ÈŒÅ—Lj
+			# ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ç”»åƒã®å‡¦ç†ï¼ˆã˜ã‚‡ã—ã‚ãªå›ºæœ‰ï¼‰
 			$line =~ s!<a href="\.\./([^"]*?\.(jpg|gif|png))"!<a href="$1"!g;
-			# ˆø—p•”•ª
+			# å¼•ç”¨éƒ¨åˆ†
 			@re = split(/\r\n|\r|\n/, $line);
 
 			foreach (@re) {
-				if (/^(„|&gt;)/) { $_ = "<font color='#$resc'>$_</font>"; }
-				elsif(/^<blockquote><pre>((„|&gt;).*)/){ # ver3.01ˆÈ~‚Ì‰ß‹ƒƒO‚Å‚Í‚±‚Ì•”•ª‚Í•s—v
+				if (/^(ï¼|&gt;)/) { $_ = "<font color='#$resc'>$_</font>"; }
+				elsif(/^<blockquote><pre>((ï¼|&gt;).*)/){ # ver3.01ä»¥é™ã®éå»ãƒ­ã‚°ã§ã¯ã“ã®éƒ¨åˆ†ã¯ä¸è¦
 					$_ = "<blockquote><pre><font color=\"#$resc\">$1</font>";
 				}
 			}
@@ -1212,30 +1212,30 @@ EOF
 		close(LOG);
 
 		if ($FORM{'keyword'} && $hit) {
-			print "<font size='+1' color='#ff69b4'><b>$logdata $searchF$FORM{'keyword'} ‚Í$hitŒ‚İ‚Â‚©‚è‚Ü‚µ‚½B</b></font><hr>\n";
+			print "<font size='+1' color='#ff69b4'><b>$logdata $searchï¼š$FORM{'keyword'} ã¯$hitä»¶ã¿ã¤ã‹ã‚Šã¾ã—ãŸã€‚</b></font><hr>\n";
 			$hitall += $hit;
 		}
 		elsif ($FORM{'keyword'}) {
-			print "<font size='+1' color='#ff69b4'><b>$logdata $searchF$FORM{'keyword'} ‚Í‚İ‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B</b></font><hr>\n";
+			print "<font size='+1' color='#ff69b4'><b>$logdata $searchï¼š$FORM{'keyword'} ã¯ã¿ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚</b></font><hr>\n";
 		}
 
 		$hit = '';
 		last if ($hitlimit);
 
-	} # ‰ß‹ƒƒOo—ÍI—¹
+	} # éå»ãƒ­ã‚°å‡ºåŠ›çµ‚äº†
 
-	$/ = "\n"; # ƒZƒpƒŒ[ƒ^‚ğŒ³‚É–ß‚·
+	$/ = "\n"; # ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã‚’å…ƒã«æˆ»ã™
 
 	if ($hitlimit) {
-		print "<font size='+1' color='#ff69b4'><b>Hit”‚ª$l_logsearchŒ‚ğ’´‚¦‚½‚½‚ßo—Í‚ª’†’f‚³‚ê‚Ü‚µ‚½BŒŸõƒ[ƒh‚Ü‚½‚Í‘I‘ğƒƒO”‚ğŒ©’¼‚µ‚Ä‚­‚¾‚³‚¢B</b></font><hr>\n";
+		print "<font size='+1' color='#ff69b4'><b>Hitæ•°ãŒ$l_logsearchä»¶ã‚’è¶…ãˆãŸãŸã‚å‡ºåŠ›ãŒä¸­æ–­ã•ã‚Œã¾ã—ãŸã€‚æ¤œç´¢ãƒ¯ãƒ¼ãƒ‰ã¾ãŸã¯é¸æŠãƒ­ã‚°æ•°ã‚’è¦‹ç›´ã—ã¦ãã ã•ã„ã€‚</b></font><hr>\n";
 	}
 
 	if ($FORM{'keyword'} && $hitall) {
 		print "<font size='+1'><b>";
-		print "$searchF$FORM{'keyword'} ‚Í‡Œv$hitallŒ‚İ‚Â‚©‚è‚Ü‚µ‚½B</b></font>@ \n";
+		print "$searchï¼š$FORM{'keyword'} ã¯åˆè¨ˆ$hitallä»¶ã¿ã¤ã‹ã‚Šã¾ã—ãŸã€‚</b></font>ã€€ \n";
 	}
 
-	print "<a href='$scriptrel?action=selectlog'>ƒƒO‘I‘ğ‰æ–Ê‚É–ß‚é</a>\n";
+	print "<a href='$scriptrel?action=selectlog'>ãƒ­ã‚°é¸æŠç”»é¢ã«æˆ»ã‚‹</a>\n";
 
 	&footer;
 
@@ -1243,10 +1243,10 @@ EOF
 
 
 ##################################
-# ŠÇ—ƒ‚[ƒh
+# ç®¡ç†ãƒ¢ãƒ¼ãƒ‰
 ##################################
 
-#------------------ƒpƒXƒ[ƒh”FØ
+#------------------ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰èªè¨¼
 
 sub chkpass {
 
@@ -1255,11 +1255,11 @@ sub chkpass {
 	open(PAS, $passfile) || &error(2, __LINE__);;
 	chomp($adminpass = <PAS>);
 	close(PAS);
-	if (crypt ($pass, $adminpass) ne $adminpass) { &error('ƒpƒXƒ[ƒh‚ª•s³‚Å‚·BÄ“ü—Í‚µ‚Ä‰º‚³‚¢B', __LINE__); }
+	if (crypt ($pass, $adminpass) ne $adminpass) { &error('ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒä¸æ­£ã§ã™ã€‚å†å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚', __LINE__); }
 
 } # chkpassword end
 
-#------------------ƒƒOƒCƒ“‰æ–Ê
+#------------------ãƒ­ã‚°ã‚¤ãƒ³ç”»é¢
 
 sub admintop {
 
@@ -1267,22 +1267,22 @@ sub admintop {
 
 	&header;
 	print <<"EOF";
-<title>$titleŠÇ—ƒ‚[ƒh</title>
+<title>$titleç®¡ç†ãƒ¢ãƒ¼ãƒ‰</title>
 $css
 </head>
 $body
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<p><font size=+1><b>$titleŠÇ—ƒ‚[ƒh</b></font> &nbsp;
-<input type="submit" value="Œf¦”Â‚É–ß‚é">
+<p><font size=+1><b>$titleç®¡ç†ãƒ¢ãƒ¼ãƒ‰</b></font> &nbsp;
+<input type="submit" value="æ²ç¤ºæ¿ã«æˆ»ã‚‹">
 </form>
 <hr>
 <form class="admin" method="POST" action="$scriptrel">
 $baseinput
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-‹L–íœ <input type="radio" name="action" value="delform" checked> &nbsp;
-ƒpƒXƒ[ƒh•ÏX <input type="radio" name="action" value="passform"><p>
-<input type="submit" value="    Œˆ’è    ">
+è¨˜äº‹å‰Šé™¤ <input type="radio" name="action" value="delform" checked> &nbsp;
+ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å¤‰æ›´ <input type="radio" name="action" value="passform"><p>
+<input type="submit" value="    æ±ºå®š    ">
 </form>
 EOF
 
@@ -1290,18 +1290,18 @@ EOF
 
 } # admintop end
 
-#------------------ƒpƒXƒ[ƒhì¬ƒtƒH[ƒ€
+#------------------ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ä½œæˆãƒ•ã‚©ãƒ¼ãƒ 
 
 sub passform {
 
 	local $warn = $_[0];
 	local $info;
 	if( $warn) { $info = "<p><font color='red'>$warn</font><br>"; }
-	if ($FORM{'pass'}) { $info .= "<p>Œ»İ‚ÌƒpƒXƒ[ƒhF$FORM{'pass'}"; }
+	if ($FORM{'pass'}) { $info .= "<p>ç¾åœ¨ã®ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼š$FORM{'pass'}"; }
 
 	&header;
 	print <<"EOF";
-<title>$titleŠÇ—ƒ‚[ƒh</title>
+<title>$titleç®¡ç†ãƒ¢ãƒ¼ãƒ‰</title>
 $css
 </head>
 $body
@@ -1309,29 +1309,29 @@ $body
 <input type="hidden" name="action" value="admintop">
 $baseinput
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-<input type="submit" value="ŠÇ—ƒ‚[ƒhTOP">
+<input type="submit" value="ç®¡ç†ãƒ¢ãƒ¼ãƒ‰TOP">
 </form> &nbsp;
 
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<input type="submit" value="Œf¦”Â‚É–ß‚é">
+<input type="submit" value="æ²ç¤ºæ¿ã«æˆ»ã‚‹">
 </form><br><br>
 
-<font size="+1"><b>ƒpƒXƒ[ƒhİ’è/•ÏX</b></font><hr>
+<font size="+1"><b>ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰è¨­å®š/å¤‰æ›´</b></font><hr>
 <p>$info
 <form method="POST" action="$scriptrel">
 <input type="hidden" name="action" value="registerpass">
 $baseinput
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-V‚µ‚¢ƒpƒXƒ[ƒhF<input type="text" name="newpass" size="12" maxlength="12">
-i”¼Šp‰p”4`12•¶š‚Å“ü—Íj<p>
-<input type=submit value="ƒpƒXƒ[ƒhİ’è"></form>
+æ–°ã—ã„ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼š<input type="text" name="newpass" size="12" maxlength="12">
+ï¼ˆåŠè§’è‹±æ•°4ï½12æ–‡å­—ã§å…¥åŠ›ï¼‰<p>
+<input type=submit value="ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰è¨­å®š"></form>
 EOF
 	&footer;
 
 } # passform end
 
-#------------------íœƒtƒH[ƒ€
+#------------------å‰Šé™¤ãƒ•ã‚©ãƒ¼ãƒ 
 
 sub delform {
 
@@ -1341,7 +1341,7 @@ sub delform {
 
 	&header;
 	print <<"EOF";
-<title>$titleŠÇ—ƒ‚[ƒh</title>
+<title>$titleç®¡ç†ãƒ¢ãƒ¼ãƒ‰</title>
 $css
 </head>
 $body
@@ -1349,21 +1349,21 @@ $body
 $baseinput
 <input type="hidden" name="action" value="admintop">
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-<input type="submit" value="ŠÇ—ƒ‚[ƒhTOP">
+<input type="submit" value="ç®¡ç†ãƒ¢ãƒ¼ãƒ‰TOP">
 </form> &nbsp;
 
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<input type="submit" value="Œf¦”Â‚É–ß‚é">
+<input type="submit" value="æ²ç¤ºæ¿ã«æˆ»ã‚‹">
 </form><br><br>
 
-<font size="4"><b>íœƒ‚[ƒh</b></font>
-<p>“Še“ú : –¼‘O : ‘è–¼ : “à—e
+<font size="4"><b>å‰Šé™¤ãƒ¢ãƒ¼ãƒ‰</b></font>
+<p>æŠ•ç¨¿æ—¥æ™‚ : åå‰ : é¡Œå : å†…å®¹
 <hr><form method="POST" action="$scriptrel">
 $baseinput
 <input type="hidden" name="action" value="delmsg">
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-<input type="submit" value="@@íœ@@"><p>
+<input type="submit" value="ã€€ã€€å‰Šé™¤ã€€ã€€"><p>
 <pre>
 EOF
 
@@ -1385,35 +1385,35 @@ EOF
 
 	print <<"EOF";
 </pre>
-<p><input type="submit" value="    íœ    "></form><hr>
+<p><input type="submit" value="    å‰Šé™¤    "></form><hr>
 <form class="admin" method="POST" action="$scriptrel">
 $baseinput
 <input type="hidden" name="action" value="admintop">
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-<input type="submit" value="ŠÇ—ƒ‚[ƒhTOP">
+<input type="submit" value="ç®¡ç†ãƒ¢ãƒ¼ãƒ‰TOP">
 </form> &nbsp;
 
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<input type="submit" value="Œf¦”Â‚É–ß‚é">
+<input type="submit" value="æ²ç¤ºæ¿ã«æˆ»ã‚‹">
 </form><br>
 EOF
 	&footer;
 
 } # delform end
 
-#------------------ˆÃ†‰»ƒpƒXƒ[ƒho—Í
+#------------------æš—å·åŒ–ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å‡ºåŠ›
 
 sub registerpass {
 
 	local $warn = '';
-	if (length $FORM{'newpass'} < 4)     { $warn = 'ƒpƒXƒ[ƒh‚Í4•¶šˆÈã‚Ì”¼Šp‰p”•¶š‚ğg—p‚µ‚Ä‰º‚³‚¢B'; }
-	elsif (12 < length $FORM{'newpass'}) { $warn = 'ƒpƒXƒ[ƒh‚Í12•¶šˆÈ“à‚Ì”¼Šp‰p”•¶š‚ğg—p‚µ‚Ä‰º‚³‚¢B'; }
-	elsif ($FORM{'newpass'} =~ /\W/)     { $warn = 'ƒpƒXƒ[ƒh‚Í”¼Šp‰p”•¶š‚ğg—p‚µ‚Ä‰º‚³‚¢B'; }
+	if (length $FORM{'newpass'} < 4)     { $warn = 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¯4æ–‡å­—ä»¥ä¸Šã®åŠè§’è‹±æ•°æ–‡å­—ã‚’ä½¿ç”¨ã—ã¦ä¸‹ã•ã„ã€‚'; }
+	elsif (12 < length $FORM{'newpass'}) { $warn = 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¯12æ–‡å­—ä»¥å†…ã®åŠè§’è‹±æ•°æ–‡å­—ã‚’ä½¿ç”¨ã—ã¦ä¸‹ã•ã„ã€‚'; }
+	elsif ($FORM{'newpass'} =~ /\W/)     { $warn = 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¯åŠè§’è‹±æ•°æ–‡å­—ã‚’ä½¿ç”¨ã—ã¦ä¸‹ã•ã„ã€‚'; }
 
 	if ($warn) {
 		&passform($warn);
-		exit; # ˆÀ‘S‘•’u
+		exit; # å®‰å…¨è£…ç½®
 	}
 
 	local $crpass = crypt($FORM{'newpass'}, em);
@@ -1424,7 +1424,7 @@ sub registerpass {
 
 	&header;
 	print <<"EOF";
-<title>$titleŠÇ—ƒ‚[ƒh</title>
+<title>$titleç®¡ç†ãƒ¢ãƒ¼ãƒ‰</title>
 $css
 </head>
 $body
@@ -1432,23 +1432,23 @@ $body
 $baseinput
 <input type="hidden" name="action" value="admintop">
 <input type="hidden" name="pass" value="$FORM{'newpass'}">
-<input type="submit" value="ŠÇ—ƒ‚[ƒhTOP">
+<input type="submit" value="ç®¡ç†ãƒ¢ãƒ¼ãƒ‰TOP">
 </form> &nbsp;
 
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<input type="submit" value="Œf¦”Â‚É–ß‚é">
+<input type="submit" value="æ²ç¤ºæ¿ã«æˆ»ã‚‹">
 </form><br><br>
 <hr>
-<font size=4><b>ŠÇ—ÒƒpƒXƒ[ƒh“o˜^Š®—¹</b></font><br><br>
-V‚µ‚¢ŠÇ—ÒƒpƒXƒ[ƒh‚Íu<font color="#cc0000">$FORM{'newpass'}</font>v‚Å‚·B
+<font size=4><b>ç®¡ç†è€…ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ç™»éŒ²å®Œäº†</b></font><br><br>
+æ–°ã—ã„ç®¡ç†è€…ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¯ã€Œ<font color="#cc0000">$FORM{'newpass'}</font>ã€ã§ã™ã€‚
 <br><br>
 EOF
 	&footer;
 
 } # registerpass end
 
-#------------------íœˆ—
+#------------------å‰Šé™¤å‡¦ç†
 
 sub delmsg {
 
@@ -1480,17 +1480,17 @@ sub delmsg {
 } # delmsg end
 
 ##################################
-# ‹¤’ÊƒTƒuƒ‹[ƒ`ƒ“
+# å…±é€šã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³
 ##################################
 
 sub chkcode {
 
 	local $code = shift;
 	local $de_code = ($code / $codesalt) - $codekey;
-	if ($code % $codesalt) {&error('“ŠeƒR[ƒh‚ª‰ó‚ê‚Ä‚¢‚Ü‚·BŒf¦”Â‚ğƒŠƒ[ƒh‚µ‚Ä‰º‚³‚¢B', __LINE__);}
-	if ($time < $de_code) { &error('“ŠeƒR[ƒh‚ª‰ó‚ê‚Ä‚¢‚Ü‚·BŒf¦”Â‚ğƒŠƒ[ƒh‚µ‚Ä‰º‚³‚¢B', __LINE__); }
-	elsif ($l_time < $time - $de_code) { &error("“ŠeƒR[ƒh‚Ì—LŒøŠúŒÀi$l_time•bj‚ª‰ß‚¬‚Ä‚¢‚Ü‚·BŒf\¦”Â‚ğƒŠƒ[ƒh‚µ‚Ä‰º‚³‚¢B", __LINE__);}
-	elsif ($time - $de_code < $s_time) { &error("“ŠeŠÔŠu‚ª’Z‚©‚·‚¬‚Ü‚·B$s_time•bˆÈãŒo‰ß‚µ‚Ä‚©‚ç“Še‚µ‚Ä‰º‚³‚¢B", __LINE__);}
+	if ($code % $codesalt) {&error('æŠ•ç¨¿ã‚³ãƒ¼ãƒ‰ãŒå£Šã‚Œã¦ã„ã¾ã™ã€‚æ²ç¤ºæ¿ã‚’ãƒªãƒ­ãƒ¼ãƒ‰ã—ã¦ä¸‹ã•ã„ã€‚', __LINE__);}
+	if ($time < $de_code) { &error('æŠ•ç¨¿ã‚³ãƒ¼ãƒ‰ãŒå£Šã‚Œã¦ã„ã¾ã™ã€‚æ²ç¤ºæ¿ã‚’ãƒªãƒ­ãƒ¼ãƒ‰ã—ã¦ä¸‹ã•ã„ã€‚', __LINE__); }
+	elsif ($l_time < $time - $de_code) { &error("æŠ•ç¨¿ã‚³ãƒ¼ãƒ‰ã®æœ‰åŠ¹æœŸé™ï¼ˆ$l_timeç§’ï¼‰ãŒéãã¦ã„ã¾ã™ã€‚æ²\ç¤ºæ¿ã‚’ãƒªãƒ­ãƒ¼ãƒ‰ã—ã¦ä¸‹ã•ã„ã€‚", __LINE__);}
+	elsif ($time - $de_code < $s_time) { &error("æŠ•ç¨¿é–“éš”ãŒçŸ­ã‹ã™ãã¾ã™ã€‚$s_timeç§’ä»¥ä¸ŠçµŒéã—ã¦ã‹ã‚‰æŠ•ç¨¿ã—ã¦ä¸‹ã•ã„ã€‚", __LINE__);}
 
 }
 
@@ -1602,33 +1602,33 @@ $baseinput
 EOF
 
 	if ($page == 1 && $page_all != 1) {
-		$prev = "<input type='button' class='prev' value='ŠJnƒy[ƒW'>\n";
-		$next = "<input type='submit' class='next' name='next' value='Ÿ‚Ìƒy[ƒW &gt;'>\n";
+		$prev = "<input type='button' class='prev' value='é–‹å§‹ãƒšãƒ¼ã‚¸'>\n";
+		$next = "<input type='submit' class='next' name='next' value='æ¬¡ã®ãƒšãƒ¼ã‚¸ &gt;'>\n";
 	}
 	elsif ($page == 1 && $page_all == 1) {
 		$prev = "<input type='button' class='prev' value='   (((*'-')'>\n";
-		$next = "<input type='button' class='next' value='¡¡ Á®ºÚ°Ä'>\n";
+		$next = "<input type='button' class='next' value='â– â–  ï¾ï½®ï½ºï¾šï½°ï¾„'>\n";
 	}
 	elsif ($page != $page_all) {
-		$prev = "<input type='submit' class='prev' name='prev' value='&lt; ‘O‚Ìƒy[ƒW'>\n";
-		$next = "<input type='submit' class='next' name='next' value='Ÿ‚Ìƒy[ƒW &gt;'>\n";
+		$prev = "<input type='submit' class='prev' name='prev' value='&lt; å‰ã®ãƒšãƒ¼ã‚¸'>\n";
+		$next = "<input type='submit' class='next' name='next' value='æ¬¡ã®ãƒšãƒ¼ã‚¸ &gt;'>\n";
 	}
 	else {
-		$prev = "<input type='submit' class='prev' name='prev' value='&lt; ‘O‚Ìƒy[ƒW'>\n";
-		$next = "<input type='button' class='next' value='ÅIƒy[ƒW'>\n";
+		$prev = "<input type='submit' class='prev' name='prev' value='&lt; å‰ã®ãƒšãƒ¼ã‚¸'>\n";
+		$next = "<input type='button' class='next' value='æœ€çµ‚ãƒšãƒ¼ã‚¸'>\n";
 	}
 
 	print $prev;
 	print $next;
-	print "<input type='submit' class='reload' name='start' value='Reload' title='ŠJnƒy[ƒW/ƒŠƒ[ƒh'>";
+	print "<input type='submit' class='reload' name='start' value='Reload' title='é–‹å§‹ãƒšãƒ¼ã‚¸/ãƒªãƒ­ãƒ¼ãƒ‰'>";
 	if (! $FORM{'mobile'}) {
-		print "<input type='submit' class='jump' value='P' title='w’èƒy[ƒW‚ÉƒWƒƒƒ“ƒv'>";
+		print "<input type='submit' class='jump' value='P' title='æŒ‡å®šãƒšãƒ¼ã‚¸ã«ã‚¸ãƒ£ãƒ³ãƒ—'>";
 		print "<input type='text' class='page' name='page' value='$page' size='1'>";
 		if ($page ne $page_all) {
-			print "<input type='submit' class='end' name='end' value='End.$page_all' title='ÅIƒy[ƒW'>\n";
+			print "<input type='submit' class='end' name='end' value='End.$page_all' title='æœ€çµ‚ãƒšãƒ¼ã‚¸'>\n";
 		}
 		else {
-			print "<input type='button' class='end' name='end' value='End.$page_all' title='ÅIƒy[ƒW'>\n";
+			print "<input type='button' class='end' name='end' value='End.$page_all' title='æœ€çµ‚ãƒšãƒ¼ã‚¸'>\n";
 		}
 	}
 
@@ -1665,7 +1665,7 @@ sub counter {
 }
 
 ##################################
-# ƒGƒ‰[ˆ—
+# ã‚¨ãƒ©ãƒ¼å‡¦ç†
 ##################################
 
 sub error {
@@ -1679,11 +1679,11 @@ sub error {
 		&cleanup_tmpdir;
 	}
 
-	if    ($error == 1) { $msg = 'ƒtƒ@ƒCƒ‹/ƒfƒBƒŒƒNƒgƒŠ‚ğŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½B(1)'; }
-	elsif ($error == 2) { $msg = 'ƒtƒ@ƒCƒ‹/ƒfƒBƒŒƒNƒgƒŠ‚ğŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½B(2)'; } # UP‰æ‘œíœ‚È‚µ
-	elsif ($error == 3) { $msg = '‰æ‘œƒtƒ@ƒCƒ‹–¼‚ªd•¡‚µ‚Ä‚¢‚Ü‚·Bimg.dat‚Ì”’l‚ÆƒAƒbƒvƒ[ƒh‰æ‘œ”Ô†‚ÌÅ‘å’l‚ğˆê’v‚³‚¹‚Ä‚­‚¾‚³‚¢B'; } # UP‰æ‘œíœ‚È‚µ
-	elsif ($error eq 'x')  { $msg = 'ˆÈ‰º‚Ìî•ñ‚ª‹L˜^‚³‚ê‚Ü‚µ‚½B‚¯‚¯'; }
-	elsif ($error eq 'xx') { $msg = '‚©‚í‚¢‚»‚¤'; }
+	if    ($error == 1) { $msg = 'ãƒ•ã‚¡ã‚¤ãƒ«/ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’é–‹ã‘ã¾ã›ã‚“ã§ã—ãŸã€‚(1)'; }
+	elsif ($error == 2) { $msg = 'ãƒ•ã‚¡ã‚¤ãƒ«/ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’é–‹ã‘ã¾ã›ã‚“ã§ã—ãŸã€‚(2)'; } # UPç”»åƒå‰Šé™¤ãªã—
+	elsif ($error == 3) { $msg = 'ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«åãŒé‡è¤‡ã—ã¦ã„ã¾ã™ã€‚img.datã®æ•°å€¤ã¨ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ç”»åƒç•ªå·ã®æœ€å¤§å€¤ã‚’ä¸€è‡´ã•ã›ã¦ãã ã•ã„ã€‚'; } # UPç”»åƒå‰Šé™¤ãªã—
+	elsif ($error eq 'x')  { $msg = 'ä»¥ä¸‹ã®æƒ…å ±ãŒè¨˜éŒ²ã•ã‚Œã¾ã—ãŸã€‚ã‘ã‘'; }
+	elsif ($error eq 'xx') { $msg = 'ã‹ã‚ã„ãã†'; }
 	else  { $msg =  $error; }
 	
 	if (! $baseinput) {
@@ -1705,7 +1705,7 @@ $css
 <input type="hidden" name="autolink" value="$autolink">
 <input type="hidden" name="imgview" value="$imgview">
 <input type="hidden" name="video" value="$video">
-<input type="submit" value="Œf¦”Â‚É–ß‚é">
+<input type="submit" value="æ²ç¤ºæ¿ã«æˆ»ã‚‹">
 </form><br><br>
 EOF
 
@@ -1713,7 +1713,7 @@ EOF
 		$FORM{value} =~ s!<a href="([^"]*)">[^<]*</a>!$1!g;
 		$FORM{value} =~ s/\x00/,/g;
 		print <<"EOF";
-<p>¦ˆÈ‰º‚Ì“Še“à—e‚Í‹L˜^‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B“Še“à—e‚ğƒRƒs[Œãã‚ÌƒŠƒ“ƒN‚©‚çŒf¦”Â‚É–ß‚Á‚Ä‰º‚³‚¢iƒuƒ‰ƒEƒU‚ÌBack‚Å‚Í–ß‚ê‚È‚¢ê‡‚ª‚ ‚è‚Ü‚·j
+<p>â€»ä»¥ä¸‹ã®æŠ•ç¨¿å†…å®¹ã¯è¨˜éŒ²ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚æŠ•ç¨¿å†…å®¹ã‚’ã‚³ãƒ”ãƒ¼å¾Œä¸Šã®ãƒªãƒ³ã‚¯ã‹ã‚‰æ²ç¤ºæ¿ã«æˆ»ã£ã¦ä¸‹ã•ã„ï¼ˆãƒ–ãƒ©ã‚¦ã‚¶ã®Backã§ã¯æˆ»ã‚Œãªã„å ´åˆãŒã‚ã‚Šã¾ã™ï¼‰
 <hr><pre>$FORM{value}</pre>
 EOF
 	}
@@ -1725,7 +1725,7 @@ EOF
 	}
 
 	if ($error eq "xx") {
-		print "<table><tr><td>" x 60, "\n@";
+		print "<table><tr><td>" x 60, "\nã€€";
 		print "</td></tr></table>" x 60, "\n\n";
 	}
 
