@@ -340,7 +340,7 @@ sub header {
 	print <<"EOF";
 <!DOCTYPE html>
 <html><head>
-<meta charset="shift-jis">
+<meta charset="UTF-8">
 <!-- Line 344 of bbs.cgi if you want to change it -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="$baseurl">
