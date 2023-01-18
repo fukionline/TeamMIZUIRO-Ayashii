@@ -123,18 +123,18 @@ $s_time = 5;              # Posting interval limit (sec)
 
 # ---------------- Setting (Other)
 
-$bbsfile = 'bbs.dat'; # Recorded file whose contents are written to
-$imglog = 'img.dat'; # Recorded file of image file number
-$passfile = 'password.pl'; # Admin password record file
-$dirinfofile = 'dirinfo.dat'; # image directory usage record file (created/used if $imgctrl = 'size';)
-$jcpl = 'jacode.pl'; # Path of the Japanese code conversion library jaocode.pl
-$bbscore = 'core.pl'; # Path of the BBS core library
-$cssloader = 'css.pl'; # path of CSS loader
-$countdir = '/count'; # directory to save count data
-$rankdir = '/rank'; # Directory for ranking data storage
-$tmpdir = '/tmp'; # Directory for temporary files
-$logdir = '/log'; # Directory for storing historical logs
-$imgdir = '/data'; # directory to store submitted images
+$bbsfile = './bbs.dat'; # Recorded file whose contents are written to
+$imglog = './img.dat'; # Recorded file of image file number
+$passfile = './password.pl'; # Admin password record file
+$dirinfofile = './dirinfo.dat'; # image directory usage record file (created/used if $imgctrl = 'size';)
+$jcpl = './jacode.pl'; # Path of the Japanese code conversion library jaocode.pl
+$bbscore = './core.pl'; # Path of the BBS core library
+$cssloader = './css.pl'; # path of CSS loader
+$countdir = './count'; # directory to save count data
+$rankdir = './rank'; # Directory for ranking data storage
+$tmpdir = './tmp'; # Directory for temporary files
+$logdir = './log'; # Directory for storing historical logs
+$imgdir = './data'; # directory to store submitted images
 
 $l_name = 40;                   # 名前の最大値(byte)
 $l_email = 80;                  # Maximum value of e-mail address (byte)
