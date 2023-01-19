@@ -8,16 +8,16 @@ sub form {
 
 	local($name, $email, $value, $subject, $hpage, $button, ,$thread, $flag) = @_;
 	local $reset = " <small><a href='$scriptrel' title='Reset of all table settings including contributor name'>*Reset</a></small>" if ($flag ne 'search1');
-	print <<"EOF";
+	print <<"EOF"; 
 <form class="main" method="POST" enctype="multipart/form-data" action="$scriptrel">
 <input type="hidden" name="action" value="$action">
 Name <input type="text" name="name" size="20" maxlength="40" value="$name">$reset<br>
 E-Mail <input type="text" name="email" size="30" value="$email"><br>
 Subject　 <input type="text" name="subject" size="30" value="$subject"> 
-<input type="submit" value="$button"><input type="reset" value="消す"><br>
-Image <small>(GIF JPG PNG  {l_width}x${l_height}px | Max file size is {l_all_kb} KB)</small><br>
+<input type="submit" value="$button"><input type="reset" value="Reset"><br>
+Image <small>(GIF, JPG, PNG -- all photos need to be within the size of $l_width x $l_height px | Max file size is $l_all_kb KB)</small><br>
 <input type=file size="30" name="filedata" accept=".gif,.jpeg,.jpg,.png"><br>
-Contents <small>Please insert line breaks as appropriate. If you press the submit button without both images and content, it will reload.</small><br>
+Contents <small>Please insert line breaks as appropriate. If you submit the post without anything, it will reset.</small><br>
 <textarea name="value" rows="5" cols="70" wrap="off">$value</textarea>
 <input type="hidden" name="hpage" value="$hpage"><br>
 EOF
@@ -31,7 +31,7 @@ EOF
 	if ($flag eq 'search1') {
 		print <<"EOF";
 
-URL自動Link<input type="checkbox" name="autolink" value="1"$chklink>
+URL AutoLink<input type="checkbox" name="autolink" value="1"$chklink>
 <input type="hidden" name="num" value="$num">
 <input type="hidden" name="bgcolor" value="$bgc">
 <input type="hidden" name="imgview" value="$imgview">
@@ -61,10 +61,10 @@ sub mbform {
 	print <<"EOF";
 <form class="main" method="POST" enctype="multipart/form-data" action="$scriptrel">
 <input type="hidden" name="action" value="$action">
-名前 <input type="text" name="name" size="14" value="$name">
+Name <input type="text" name="name" size="14" value="$name">
 $pclink<br>
 <input type="hidden" name="email" size="12" value="$email">
-題名 <input type="text" name="subject" size="14" value="$subject">
+Name <input type="text" name="subject" size="14" value="$subject">
 $reset<br>
 <input type=file size="12" name="filedata" accept=".gif,.jpeg,.jpg,.png"><br>
 <textarea name="value" rows="5" cols="37">$value</textarea>
@@ -199,7 +199,7 @@ sub disp {
 	else { print "　Poster：<font color='#$subjc'><b>$name</b></font>\n"; }
 
 	print <<"EOF";
-<font size="-1">　Posted：$date</font> &nbsp;
+<font size="-1">　Posted on $date</font> &nbsp;
 <input class="search" type="submit" name="$datenum" value="■">&nbsp;
 <input class="search" type="submit" name="$search" value="★">&nbsp;
 EOF
@@ -287,8 +287,8 @@ sub mbdisp {
 	if ($datenum == $thread) { print "<input class='search' type='submit' name='$thread' value='◇'>"; }
 	elsif ($thread) { print "<input class='search' type='submit' name='$thread' value='◆'>"; }
 	print "<br>\n";
-	if ($email) { print "名前：<a href='mailto:$email'>$name</a>&nbsp;\n"; }
-	else { print "名前：$name&nbsp;\n"; }
+	if ($email) { print "Name：<a href='mailto:$email'>$name</a>&nbsp;\n"; }
+	else { print "Name：$name&nbsp;\n"; }
 	# 旧バージョンのWEB画像をリンクに変換
 	$value =~ s!<img src="([^"]+)">!<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>!gi; 
 	local @vlines = split(/\r/, $value);
@@ -311,7 +311,7 @@ sub mbdisp {
 } # mbdisp end
 
 ##################################
-# デコードとアップロード画像の記録
+# デコードとUpload Imageの記録
 ##################################
 
 sub decode {
@@ -418,7 +418,7 @@ sub binary {
 		$type = 'png';
 		$range = 24;
 	}
-	else{ &error('GIF JPG PNG画像以外はアップロードできません。', __LINE__); }
+	else{ &error('Non-GIF JPG PNG images cannot be uploaded.', __LINE__); }
 
 	local $crlf = '';
 	while (<STDIN>) {
@@ -446,7 +446,7 @@ sub binary {
 		if ($data =~ /ImplantArchive/) { $pos = index($data, "\xff\xc0"); }
 		elsif ($data =~ /\xff\xc2/) { $pos = rindex($data, "\xff\xc2"); }
 		else{ $pos = rindex($data, "\xff\xc0"); }
-		if ($pos == -1) { &error('画像サイズ(width/height)の取得に失敗しました。', __LINE__); }
+		if ($pos == -1) { &error('Failed to get image size (width/height).', __LINE__); }
 		@data = split(//, substr($data, $pos + 5, 4));
 		foreach (@data) { $_ = ord; };
 		$GLOB{'imgw'} = 256 * $data[2] + $data[3];
@@ -514,9 +514,9 @@ sub register {
 
 	if ($l_name < length $FORM{'name'})       { &error("Name is too long. Maximum $l_name byte.", __LINE__); }
 	if ($l_email < length $FORM{'email'})     { &error("Email is too long. Maximum is $l_email bytes.", __LINE__); }
-	if ($l_subject < length $FORM{'subject'}) { &error("題名が長すぎます。最大$l_subject byteまでです。", __LINE__); }
-	if ($l_value < length $FORM{'value'})     { &error("内容が長すぎます。最大$l_value byteまでです。", __LINE__); }
-	if ($l_line < ($FORM{'value'} =~ tr/\r/\r/) + 1) { &error("内容の行数が多すぎます。最大$l_line 行までです。", __LINE__); }
+	if ($l_subject < length $FORM{'subject'}) { &error("Subject is too long. Maximum $l_subject byte.", __LINE__); }
+	if ($l_value < length $FORM{'value'})     { &error("Content is too long. Maximum $l_value byte.", __LINE__); }
+	if ($l_line < ($FORM{'value'} =~ tr/\r/\r/) + 1) { &error("Too many lines of content. Maximum $l_line lines. ", __LINE__); }
 
 	# スパム対策
 	if ($spammode == 2 || ($spammode == 1 && ! $GLOB{'img'})) {
@@ -525,8 +525,8 @@ sub register {
 		local $valuecode = &jcode'getcode(*value);
 		while ($value =~ m!https?://!gi) {
 			$urlcount++;
-			if (2 < $urlcount && $ENV{'HTTP_ACCEPT_LANGUAGE'} !~ /^ja/) {
-				&error('The post was deleted as spam because it included more than 3 URLs.', __LINE__);
+			if (2 < $urlcount && $ENV{'HTTP_ACCEPT_LANGUAGE'} !~ /^en/) {
+				&error('The post was deleted as spam because it included more than 3 URLs and was not in English.', __LINE__);
 			}
 			elsif (2 < $urlcount && $valuecode !~ /sjis|jis|euc|utf8/) {
 				&error('The post was deleted as spam because it included more than 3 URLs.', __LINE__);
@@ -704,9 +704,9 @@ sub pushlog {
 
 	print LOG qq!<font size="-1">　Submission Date：$datenow</font><p>\n<blockquote><pre>\n!;
 
-	# logディレクトリからの相対指定でアップロード画像は../$imgdir/$img
+	# logディレクトリからの相対指定でUpload Image../$imgdir/$img
 
-	print LOG qq!<font color="#ff69b4">アップロード画像Upload Image：</font><a href="../$imgdir/$img" target="img">$img</a>\n! if ($img);
+	print LOG qq!<font color="#ff69b4">Upload Image：</font><a href="../$imgdir/$img" target="img">$img</a>\n! if ($img);
 
 	print LOG "\n" if($value && $img);
 
@@ -738,7 +738,7 @@ $css
 $body
 <form class="article" method="POST" action="$scriptrel">
 $baseinput
-<font size=+1><b>フォロー記事投稿</b></font> &nbsp;
+<font size=+1><b>Follow-up Article Submission</b></font> &nbsp;
 <input type="submit" value="戻る">
 
 EOF
@@ -813,7 +813,7 @@ $body
 <form class="article" method="POST" action="$scriptrel">
 $baseinput
 <font size="+1"><b>Contributor Name Search「$name」</b></font><small>(Maximum $l_search2 table\)</small> &nbsp;
-<input type="submit" value="戻る">
+<input type="submit" value="Search">
 EOF
 
 	open(DB, $bbsfile) || &error(2, __LINE__);
@@ -874,7 +874,7 @@ $css
 $body
 <form class="article" method="POST" action="$scriptrel">
 $baseinput
-<font size="+1"><b>スレッド $threadname*</b></font> &nbsp;
+<font size="+1"><b>Thread $threadname*</b></font> &nbsp;
 <input type="submit" value="Submit">
 EOF
 
@@ -892,14 +892,14 @@ EOF
 		
 		}
 		if ( $l_thread <= $found ) {
-			print "<hr>記事が$l_thread件を超えました。これ以降の記事は省略されています。\n"; 
+			print "<hr>The number of articles has exceeded $l_threads. Subsequent articles have been omitted.\n"; 
 			last;
 		}
 	}
 	close(DB);
 
 	print "</form>\n";
-	print "みつかりません<br>" if ($found == 0);
+	print "Not found.<br>" if ($found == 0);
 	print "<br><a href='$scriptrel#top'>△TOP</a>\n";
 	
 	&footer;
@@ -919,7 +919,7 @@ sub viewrank {
 $body
 <center>
 <table width=80% border=0><tr><td align="center">
-	<font size=+1><b>$title 投稿ランキングTOP10</b></font>
+	<font size=+1><b>$title Submissions TOP 10</b></font>
 </tr></td></table>
 <p>
 EOF
@@ -944,10 +944,10 @@ EOF
 		foreach(values(%DB)){ $total += $_; }
 		print <<"EOF";
 <table width=80% border=0><tr><td align="left">
-<font size=+1>$rankyear年$rankmon月</font>　投稿数：$total
+<font size=+1>$rankyearYear $rankmonth</font>　Total：$total
 </td></tr></table>
 <table width=80% border=1>
-<tr><th>順位</th><th>名前</th><th>数</th><th>割合</th></tr>
+<tr><th>Order</th><th>Name</th><th>No.</th><th>Percent</th></tr>
 EOF
 		$kazu = $i = 1;
 		foreach(sort {$DB{$b} <=> $DB{$a}} keys(%DB)){
@@ -1114,11 +1114,11 @@ EOF
 	$warn = '';
 
 	if ($l_keyword < length$FORM{'keyword'}) { 
-		$warn .= "<br><br>検索キーワードは半角$l_keyword文字以内にしてください。\n";
+		$warn .= "<br><br>Search keywords must be within one-byte $l_keyword characters.\n";
 	}
 
 	if($ngsearch == 1 && ($FORM{'keyword'} eq ' ' || $FORM{'keyword'} eq '　')) { 
-		$warn .= "<br><br>エラー : キーワード\"半角or全角スペース1個\"で過去ログサーチすることはできません。\n";
+		$warn .= "<br><br>Error : You cannot search logs with the keyword None.\n";
 	}
 	elsif($ngsearch == 2 && length( $FORM{'keyword'} ) == 1) {
 		$warn .=  "<br><br>エラー : キーワード\"半角1文字(1byte)\"で過去ログサーチすることはできません。2文字以上のキーワードを指定してください。\n";
@@ -1185,7 +1185,7 @@ EOF
 				}
 			}
 
-			# アップロード画像の処理（じょしあな固有）
+			# Upload Imageの処理（じょしあな固有）
 			$line =~ s!<a href="\.\./([^"]*?\.(jpg|gif|png))"!<a href="$1"!g;
 			# 引用部分
 			@re = split(/\r\n|\r|\n/, $line);
@@ -1212,11 +1212,11 @@ EOF
 		close(LOG);
 
 		if ($FORM{'keyword'} && $hit) {
-			print "<font size='+1' color='#ff69b4'><b>$logdata $search：$FORM{'keyword'} は$hit件みつかりました。</b></font><hr>\n";
+			print "<font size='+1' color='#ff69b4'><b>$logdata $search：$FORM{'keyword'} は$Hit case found.</b></font><hr>\n";
 			$hitall += $hit;
 		}
 		elsif ($FORM{'keyword'}) {
-			print "<font size='+1' color='#ff69b4'><b>$logdata $search：$FORM{'keyword'} はみつかりませんでした。</b></font><hr>\n";
+			print "<font size='+1' color='#ff69b4'><b>$logdata $search：$FORM{'keyword'} was not found.</b></font><hr>\n";
 		}
 
 		$hit = '';
@@ -1243,7 +1243,7 @@ EOF
 
 
 ##################################
-# 管理モード
+#  Management mode
 ##################################
 
 #------------------パスワード認証
@@ -1267,22 +1267,22 @@ sub admintop {
 
 	&header;
 	print <<"EOF";
-<title>$title管理モード</title>
+<title>$title Management mode</title>
 $css
 </head>
 $body
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<p><font size=+1><b>$title管理モード</b></font> &nbsp;
-<input type="submit" value="掲示板に戻る">
+<p><font size=+1><b>$title Management Mode</b></font> &nbsp;
+<input type="submit" value="Back to Bulletin Board">
 </form>
 <hr>
 <form class="admin" method="POST" action="$scriptrel">
 $baseinput
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-記事削除 <input type="radio" name="action" value="delform" checked> &nbsp;
-パスワード変更 <input type="radio" name="action" value="passform"><p>
-<input type="submit" value="    決定    ">
+Delete Article <input type="radio" name="action" value="delform" checked> &nbsp;
+Password <input type="radio" name="action" value="passform"><p>
+<input type="submit" value="    Submit    ">
 </form>
 EOF
 
@@ -1301,7 +1301,7 @@ sub passform {
 
 	&header;
 	print <<"EOF";
-<title>$title管理モード</title>
+<title>$title Management Mode</title>
 $css
 </head>
 $body
@@ -1309,29 +1309,29 @@ $body
 <input type="hidden" name="action" value="admintop">
 $baseinput
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-<input type="submit" value="管理モードTOP">
+<input type="submit" value="Management Mode TOP">
 </form> &nbsp;
 
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<input type="submit" value="掲示板に戻る">
+<input type="submit" value="Back to Bulletin Board">
 </form><br><br>
 
-<font size="+1"><b>パスワード設定/変更</b></font><hr>
+<font size="+1"><b>Set/Change Password</b></font><hr>
 <p>$info
 <form method="POST" action="$scriptrel">
 <input type="hidden" name="action" value="registerpass">
 $baseinput
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-新しいパスワード：<input type="text" name="newpass" size="12" maxlength="12">
-（半角英数4～12文字で入力）<p>
-<input type=submit value="パスワード設定"></form>
+New password: (make it snappy and secure!):<input type="text" name="newpass" size="12" maxlength="12">
+(Enter 4 to 12 half-width alphanumeric characters)<p>
+<input type=submit value="Password Setting"></form>
 EOF
 	&footer;
 
 } # passform end
 
-#------------------削除フォーム
+#------------------Postフォーム
 
 sub delform {
 
@@ -1341,7 +1341,7 @@ sub delform {
 
 	&header;
 	print <<"EOF";
-<title>$title管理モード</title>
+<title>$title Management mode</title>
 $css
 </head>
 $body
@@ -1349,21 +1349,21 @@ $body
 $baseinput
 <input type="hidden" name="action" value="admintop">
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-<input type="submit" value="管理モードTOP">
+<input type="submit" value=" Management modeTOP">
 </form> &nbsp;
 
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<input type="submit" value="掲示板に戻る">
+<input type="submit" value="Back to Bulletin Board">
 </form><br><br>
 
-<font size="4"><b>削除モード</b></font>
-<p>投稿日時 : 名前 : 題名 : 内容
+<font size="4"><b>Postモード</b></font>
+<p>投稿日時 : Name : 題名 : 内容
 <hr><form method="POST" action="$scriptrel">
 $baseinput
 <input type="hidden" name="action" value="delmsg">
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-<input type="submit" value="　　削除　　"><p>
+<input type="submit" value="　　Post　　"><p>
 <pre>
 EOF
 
@@ -1385,17 +1385,17 @@ EOF
 
 	print <<"EOF";
 </pre>
-<p><input type="submit" value="    削除    "></form><hr>
+<p><input type="submit" value="    Post    "></form><hr>
 <form class="admin" method="POST" action="$scriptrel">
 $baseinput
 <input type="hidden" name="action" value="admintop">
 <input type="hidden" name="pass" value="$FORM{'pass'}">
-<input type="submit" value="管理モードTOP">
+<input type="submit" value=" Management modeTOP">
 </form> &nbsp;
 
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<input type="submit" value="掲示板に戻る">
+<input type="submit" value="Back to Bulletin Board">
 </form><br>
 EOF
 	&footer;
@@ -1424,7 +1424,7 @@ sub registerpass {
 
 	&header;
 	print <<"EOF";
-<title>$title管理モード</title>
+<title>$title Management mode</title>
 $css
 </head>
 $body
@@ -1432,12 +1432,12 @@ $body
 $baseinput
 <input type="hidden" name="action" value="admintop">
 <input type="hidden" name="pass" value="$FORM{'newpass'}">
-<input type="submit" value="管理モードTOP">
+<input type="submit" value=" Management modeTOP">
 </form> &nbsp;
 
 <form class="back" method="POST" action="$scriptrel">
 $baseinput
-<input type="submit" value="掲示板に戻る">
+<input type="submit" value="Back to Bulletin Board">
 </form><br><br>
 <hr>
 <font size=4><b>管理者パスワード登録完了</b></font><br><br>
@@ -1448,7 +1448,7 @@ EOF
 
 } # registerpass end
 
-#------------------削除処理
+#------------------Post処理
 
 sub delmsg {
 
@@ -1603,32 +1603,32 @@ EOF
 
 	if ($page == 1 && $page_all != 1) {
 		$prev = "<input type='button' class='prev' value='開始ページ'>\n";
-		$next = "<input type='submit' class='next' name='next' value='次のページ &gt;'>\n";
+		$next = "<input type='submit' class='next' name='next' value='Next page &gt;'>\n";
 	}
 	elsif ($page == 1 && $page_all == 1) {
-		$prev = "<input type='button' class='prev' value='   (((*'-')'>\n";
-		$next = "<input type='button' class='next' value='■■ ﾁｮｺﾚｰﾄ'>\n";
+		$prev = "<input type='button' class='prev' value='((*;-;)'>\n";
+		$next = "<input type='button' class='next' value='■■ Next'>\n";
 	}
 	elsif ($page != $page_all) {
-		$prev = "<input type='submit' class='prev' name='prev' value='&lt; 前のページ'>\n";
-		$next = "<input type='submit' class='next' name='next' value='次のページ &gt;'>\n";
+		$prev = "<input type='submit' class='prev' name='prev' value='&lt; Previous Page'>\n";
+		$next = "<input type='submit' class='next' name='next' value='Next page &gt;'>\n";
 	}
 	else {
-		$prev = "<input type='submit' class='prev' name='prev' value='&lt; 前のページ'>\n";
-		$next = "<input type='button' class='next' value='最終ページ'>\n";
+		$prev = "<input type='submit' class='prev' name='prev' value='&lt; Previous Page'>\n";
+		$next = "<input type='button' class='next' value='Last Page'>\n";
 	}
 
 	print $prev;
 	print $next;
-	print "<input type='submit' class='reload' name='start' value='Reload' title='開始ページ/リロード'>";
+	print "<input type='submit' class='reload' name='start' value='Reload' title='First/Reload'>";
 	if (! $FORM{'mobile'}) {
-		print "<input type='submit' class='jump' value='P' title='指定ページにジャンプ'>";
+		print "<input type='submit' class='jump' value='P' title='Jump to the specified page'>";
 		print "<input type='text' class='page' name='page' value='$page' size='1'>";
 		if ($page ne $page_all) {
-			print "<input type='submit' class='end' name='end' value='End.$page_all' title='最終ページ'>\n";
+			print "<input type='submit' class='end' name='end' value='End.$page_all' title='Last Page'>\n";
 		}
 		else {
-			print "<input type='button' class='end' name='end' value='End.$page_all' title='最終ページ'>\n";
+			print "<input type='button' class='end' name='end' value='End.$page_all' title='Last Page'>\n";
 		}
 	}
 
@@ -1679,11 +1679,11 @@ sub error {
 		&cleanup_tmpdir;
 	}
 
-	if    ($error == 1) { $msg = 'ファイル/ディレクトリを開けませんでした。(1)'; }
-	elsif ($error == 2) { $msg = 'ファイル/ディレクトリを開けませんでした。(2)'; } # UP画像削除なし
-	elsif ($error == 3) { $msg = '画像ファイル名が重複しています。img.datの数値とアップロード画像番号の最大値を一致させてください。'; } # UP画像削除なし
-	elsif ($error eq 'x')  { $msg = '以下の情報が記録されました。けけ'; }
-	elsif ($error eq 'xx') { $msg = 'かわいそう'; }
+	if    ($error == 1) { $msg = 'Could not open file/directory. (1)'; }
+	elsif ($error == 2) { $msg = 'Could not open file/directory. (2)'; } # UP画像Postなし
+	elsif ($error == 3) { $msg = 'Duplicate image filenames; please match the number in img.dat with the maximum Upload Image number.'; } # UP画像Postなし
+	elsif ($error eq 'x')  { $msg = 'The following information was recorded as a result.'; }
+	elsif ($error eq 'xx') { $msg = 'Poor.'; }
 	else  { $msg =  $error; }
 	
 	if (! $baseinput) {
@@ -1705,7 +1705,7 @@ $css
 <input type="hidden" name="autolink" value="$autolink">
 <input type="hidden" name="imgview" value="$imgview">
 <input type="hidden" name="video" value="$video">
-<input type="submit" value="掲示板に戻る">
+<input type="submit" value="Back to Bulletin Board">
 </form><br><br>
 EOF
 
@@ -1713,7 +1713,7 @@ EOF
 		$FORM{value} =~ s!<a href="([^"]*)">[^<]*</a>!$1!g;
 		$FORM{value} =~ s/\x00/,/g;
 		print <<"EOF";
-<p>※以下の投稿内容は記録されませんでした。投稿内容をコピー後上のリンクから掲示板に戻って下さい（ブラウザのBackでは戻れない場合があります）
+<p>※The following post was not recorded. Please copy your post and click the link above to return to the message board (you may not be able to return using your browser's Back).）
 <hr><pre>$FORM{value}</pre>
 EOF
 	}
