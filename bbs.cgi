@@ -427,9 +427,9 @@ EOF
 	print <<"EOF";
 <br><br>
 <font size="-1">$countdate from $counter (Debris resistance level $countlevel)<br>
-<hr>The recent logs are<a href="$scriptrel?action=getlog&data=$year$mon.html&start=1&end=31" target="_blank" rel="noopener noreferrer">these</a>.
+<hr>The recent logs are <a href="$scriptrel?action=getlog&data=$year$mon.html&start=1&end=31" target="_blank" rel="noopener noreferrer">these</a>.
 The old logs are <a href="$scriptrel?action=selectlog"  target="_blank" rel="noopener noreferrer">these</a>。
-The Ayashii Warudo instance is created by <a href="http://taiyaki.s8.xrea.com/TeamMIZUIRO/index.html" target="_blank" rel="noopener noreferrer">TeamMIZUIRO</a>.<br>
+The Ayashii Warudo instance was created by <a href="http://taiyaki.s8.xrea.com/TeamMIZUIRO/index.html" target="_blank" rel="noopener noreferrer">TeamMIZUIRO</a>.<br>
 <hr>■ Reply to Post &nbsp;★Poster search &nbsp;◇Thread (New) &nbsp;◆Thread (Reply)&nbsp;&nbsp; 
 Maximum number of registrations $l_record件 &nbsp;&nbsp; Preserved images $info
 </font>
@@ -488,7 +488,7 @@ sub footer{
 	if (! $FORM{'mobile'}) {
 	print <<"EOF";
 <hr size="5"><div align="right"><font size="-1">
-AyashiiWorld@joshiana + <a href="http://taiyaki.s8.xrea.com/TeamMIZUIRO/index.html" target="_blank" rel="noopener noreferrer">TeamMIZUIRO</a> v3.10d + <a href="https://github.com/ShockAwer/TeamMIZUIRO-Ayashii">translated by jr</a>
+AyashiiWorld joshiana variant + <a href="http://taiyaki.s8.xrea.com/TeamMIZUIRO/index.html" target="_blank" rel="noopener noreferrer">TeamMIZUIRO</a> v3.10d + <a href="https://github.com/ShockAwer/TeamMIZUIRO-Ayashii">translated by jr</a>
 </font></div>
 EOF
 	}
