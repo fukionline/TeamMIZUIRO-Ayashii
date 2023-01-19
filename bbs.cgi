@@ -200,7 +200,7 @@ $mon++;
 $year += 1900;
 foreach ($sec, $min, $hour, $mday, $mon, $year) { $_ = sprintf("%02d", $_); }
 $wdayja = ('Sun','Mon','Tues','Wed','Thurs','Fri','Sat')[$wday];
-$datenow = "$yearYear$monMonth$mdayDay($wdayja)$hourHour$minMin$secSec";
+$datenow = "$year/$mon/$mday ($wdayja) at $hour:$min:$sec";
 
 # 投稿コード発行
 $code = ($time + $codekey) * $codesalt;
